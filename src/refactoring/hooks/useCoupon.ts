@@ -8,7 +8,7 @@ export const useCoupons = (initialCoupons: Coupon[]) => {
     setCoupons((prevCoupons) => {
       const exists = prevCoupons.some(coupon => coupon.code === newCoupon.code);
       if (exists) {
-        console.error("이미 쿠폰이 존재해 새로 등록할 수 없습니다.", newCoupon.code);
+        alert("이미 쿠폰이 존재해 새로 등록할 수 없습니다.");
         return prevCoupons;
       }
       return [...prevCoupons, newCoupon];
