@@ -37,3 +37,12 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
     totalDiscount: Math.round(totalDiscount)
   };
 };
+
+export const updateCartItemQuantity = (cart: CartItem[], productId: string, newQuantity: number): CartItem[] => {
+  return cart.map((item) => {
+    if (item.product.id !== productId) return item;
+    
+    const updatedQuantity = Math.max(0, Math.min(newQuantity, item.product.stock));
+    return updatedQuantity > 0 ? { ...item, quantity: updatedQuantity } : null;
+  }).filter((item): item is CartItem => item !== null);
+};
