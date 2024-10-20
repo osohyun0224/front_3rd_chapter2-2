@@ -15,3 +15,12 @@ export const getMaxApplicableDiscount = (item: CartItem) => {
   ), 0);
 };
 
+
+const applyCoupon = (total: number, coupon: Coupon | null) => {
+  if (!coupon) return total;
+  const { discountType, discountValue } = coupon;
+  
+  return discountType === "amount"
+    ? Math.max(0, total - discountValue)
+    : total * (1 - discountValue / 100);
+};
