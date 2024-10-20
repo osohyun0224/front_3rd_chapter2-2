@@ -24,3 +24,16 @@ const applyCoupon = (total: number, coupon: Coupon | null) => {
     ? Math.max(0, total - discountValue)
     : total * (1 - discountValue / 100);
 };
+
+export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
+  const totalBeforeDiscount = cart.reduce((total, item) => total + calculateItemTotal(item, false), 0);
+  const totalAfterDiscount = cart.reduce((total, item) => total + calculateItemTotal(item), 0);
+  const totalAfterCoupon = applyCoupon(totalAfterDiscount, selectedCoupon);
+  const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
+
+  return {
+    totalBeforeDiscount: Math.round(totalBeforeDiscount),
+    totalAfterDiscount: Math.round(totalAfterCoupon),
+    totalDiscount: Math.round(totalDiscount)
+  };
+};
