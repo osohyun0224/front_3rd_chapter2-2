@@ -32,7 +32,11 @@ export const useCart = () => {
     );
   };
 
-  const updateQuantity = (productId: string, newQuantity: number) => {};
+  const updateQuantity = (productId: string, newQuantity: number) => {
+    setCart((prevCart) =>
+      updateCartItemQuantity(prevCart, productId, newQuantity)
+    );
+  };
 
   const applyCoupon = (coupon: Coupon) => {};
 
