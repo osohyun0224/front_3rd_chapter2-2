@@ -26,7 +26,11 @@ export const useCart = () => {
     });
   };
 
-  const removeFromCart = (productId: string) => {};
+  const removeFromCart = (productId: string) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.product.id !== productId)
+    );
+  };
 
   const updateQuantity = (productId: string, newQuantity: number) => {};
 
