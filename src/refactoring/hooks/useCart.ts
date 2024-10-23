@@ -2,6 +2,14 @@ import { useCallback, useState } from 'react'
 import { CartItem, Coupon, Product } from '../../types'
 import { calculateCartTotal, updateCartItemQuantity, roundInt }  from './utils'
 
+/**
+ * @function useCart
+ * @description 사용자의 장바구니 상태를 관리하는 훅
+ * @summary 계산 > calculateCartTotal, updateCartItemQuantity, roundInt 사용
+ * 장바구니 내의 상품 목록 관리, 상품 추가 및 제거, 수량 업데이트, 쿠폰 적용, 총 금액 계산 기능
+ * @returns {object} 장바구니 관리에 필요한 상태와 함수들을 포함하는 객체
+ */
+
 export const useCart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
