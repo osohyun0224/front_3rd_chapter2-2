@@ -52,7 +52,7 @@ const applyCoupon = (total: number, coupon: Coupon | null) => {
 
 /**
  * @function calculateApplyDiscountedPrice
- * @description 한 상품에 적용되는 상품의 정보
+ * @description 한개의 상품에 이미 할인된 가격을 계산
  * @param {CartItem[]} cart 장바구니 항목들
  * @param {number} discount 할인 율
  * @returns {number} 총 할인된 가격
