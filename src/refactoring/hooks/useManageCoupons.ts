@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { Coupon } from '../../types'
 import {isValidCoupon} from './utils'
 
-type CouponManageProps = {
+interface CouponManageProps {
   onCouponAdd: (newCoupon: Coupon) => void
 }
 
