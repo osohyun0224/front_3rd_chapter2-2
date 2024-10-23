@@ -68,11 +68,21 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
   const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
 
   return {
-    totalBeforeDiscount: Math.round(totalBeforeDiscount),
-    totalAfterDiscount: Math.round(totalAfterCoupon),
-    totalDiscount: Math.round(totalDiscount),
+    totalBeforeDiscount: roundInt(totalBeforeDiscount),
+    totalAfterDiscount: roundInt(totalAfterCoupon),
+    totalDiscount: roundInt(totalDiscount),
   };
 };
+
+/**
+ * @function roundInt
+ * @description 정수로 변환하는 함수
+ * @param {number} amount 정수로 변환하려고 하는 값
+ * @returns {number} 최종 변환된 값
+ */
+export function roundInt(amount: number): number {
+  return Math.round(amount)
+}
 
 /**
  * @function updateCartItemQuantity
