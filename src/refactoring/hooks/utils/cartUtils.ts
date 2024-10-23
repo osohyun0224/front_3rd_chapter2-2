@@ -2,13 +2,12 @@ import { CartItem, Coupon, Discount  } from '../../../types';
 
 /**
  * @function calculateItemTotal
- * @description 주어진 항목의 총 가격을 계산합
- * @param {CartItem} item - 총 가격을 계산할 카트 항목
- * @param {boolean} applyDiscount - 할인 적용 여부
- * @returns {number} 할인이 적용된 항목의 총 가격
+ * @description 특정 상품의 최대 할인율을 계산
+ * @param {CartItem} item - 장바구니 항목
+ * @returns {number} 계산된 최대 할인율
  */
 
-export function calculateItemTotal(cart: CartItem): number {
+export function calculateItemTotal(cart: CartItem) {
   const discount = getMaxApplicableDiscount(cart)
   const totalAfterDiscount = calculateApplyDiscountedPrice(cart, discount)
   return Math.round(totalAfterDiscount)
