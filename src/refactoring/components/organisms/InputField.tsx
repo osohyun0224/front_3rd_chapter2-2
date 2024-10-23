@@ -1,10 +1,11 @@
 import { FC } from 'react';
+import { Label, Input } from "../atoms"
 
 interface InputFieldProps {
   type: 'text' | 'number';
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  id?: string;
+  id: string;
   name?: string;
   placeholder?: string;
   label?: string;
@@ -19,21 +20,12 @@ export const InputField: FC<InputFieldProps> = ({
   value,
   onChange,
   label,
-  className = 'w-full p-2 border rounded'
+  className
 }) => {
-  const inputProps = {
-    id,
-    name,
-    placeholder,
-    type,
-    value: type === 'number' ? value.toString() : value, 
-    onChange
-  };
-
   return (
     <>
-      {label && <label htmlFor={id} className="block mb-1">{label}</label>}
-      <input {...inputProps} className={className} />
+      {label && <Label htmlFor={id}>{label}</Label>}
+      <Input id={id} name={name} placeholder={placeholder} type={type} value={value} onChange={onChange} className={className} />
     </>
   );
 };
