@@ -1,25 +1,39 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface InputFieldProps {
-  id: string;
-  type: string;
+  id?: string;
+  name?: string;
+  placeholder?: string;
+  type: 'text' | 'number';
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
+  label?: string;
   className?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ id, type, value, onChange, placeholder, className }) => {
+export const InputField: FC<InputFieldProps> = ({
+  id,
+  name,
+  placeholder,
+  type,
+  value,
+  onChange,
+  label,
+  className = 'w-full p-2 border rounded'
+}) => {
+  const inputProps = {
+    id,
+    name,
+    placeholder,
+    type,
+    value,
+    onChange
+  };
+
   return (
-    <input
-      id={id}
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={`w-full p-2 border rounded ${className}`}
-    />
+    <>
+      {label && <label htmlFor={id} className="block mb-1">{label}</label>}
+      <input {...inputProps} className={className} />
+    </>
   );
 };
-
-export default InputField;
