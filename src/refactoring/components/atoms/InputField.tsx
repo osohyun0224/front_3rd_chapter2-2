@@ -26,7 +26,7 @@ export const InputField: FC<InputFieldProps> = ({
     name,
     placeholder,
     type,
-    value,
+    value: type === 'number' ? value.toString() : value, 
     onChange
   };
 
