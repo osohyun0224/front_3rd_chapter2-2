@@ -1,4 +1,4 @@
-import { CartItem, Coupon } from '../../../types';
+import { CartItem, Coupon, Discount  } from '../../../types';
 
 /**
  * @function calculateItemTotal
@@ -8,14 +8,26 @@ import { CartItem, Coupon } from '../../../types';
  * @returns {number} 할인이 적용된 항목의 총 가격
  */
 
-export const calculateItemTotal = (item: CartItem, applyDiscount: boolean = true) => {
-  const {
-    product: { price },
-    quantity,
-  } = item;
-  const discountMultiplier = applyDiscount ? 1 - getMaxApplicableDiscount(item) : 1;
-  return price * quantity * discountMultiplier;
-};
+export function calculateItemTotal(cart: CartItem): number {
+  const discount = getMaxApplicableDiscount(cart)
+  const totalAfterDiscount = calculateApplyDiscountedPrice(cart, discount)
+  return Math.round(totalAfterDiscount)
+}
+
+
+/**
+ * @function calculateMaxDiscount
+ * @description 한 상품의 최대의 할인율을 계산
+ * @param {Discount[]} discounts 초기 설정된 할인 정보
+ * @param {number} quantity 한 상품의 수량
+ * @returns {number} 한 상품의 최대의 할인율
+ */
+export function calculateMaxDiscount(discounts: Discount[], quantity: number): number {
+  return discounts.reduce(
+    (max, discount) => (quantity >= discount.quantity ? Math.max(max, discount.rate) : max),
+    0
+  )
+}
 
 /**
  * @function getMaxApplicableDiscount
