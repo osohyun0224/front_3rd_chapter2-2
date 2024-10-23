@@ -3,12 +3,12 @@ import { FC } from 'react';
 export interface ButtonProps {
   id?: string;
   className?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate';
   text: string;
   onClick: () => void;
   disabled?: boolean;
-};
+}
 
 const colorStyles = {
   primary: 'bg-blue-500 text-white hover:bg-blue-600',
@@ -16,20 +16,25 @@ const colorStyles = {
   info: 'bg-gray-300 text-black hover:bg-gray-400',
   error: 'bg-red-500 text-white hover:bg-red-600',
   disabled: 'bg-gray-300 text-gray-500 cursor-not-allowed',
-  navigate: 'bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100'
+  navigate: 'bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100',
 } as const;
 
 const sizeStyles = {
   small: 'px-2 py-1',
   medium: 'px-4 py-2',
   large: 'px-6 py-3',
+  xlarge: 'w-full px-3 py-1',
 } as const;
 
-const computeButtonClassNames = (color: keyof typeof colorStyles, size: keyof typeof sizeStyles, additionalClasses: string) => {
+const computeButtonClassNames = (
+  color: keyof typeof colorStyles,
+  size: keyof typeof sizeStyles,
+  additionalClasses: string
+) => {
   const colorClass = colorStyles[color];
   const sizeClass = sizeStyles[size];
   return `rounded ${additionalClasses} ${colorClass} ${sizeClass}`.trim();
-}
+};
 
 export const Button: FC<ButtonProps> = ({
   id,
