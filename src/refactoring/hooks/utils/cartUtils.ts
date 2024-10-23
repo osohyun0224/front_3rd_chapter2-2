@@ -51,6 +51,18 @@ const applyCoupon = (total: number, coupon: Coupon | null) => {
 };
 
 /**
+ * @function calculateApplyDiscountedPrice
+ * @description 한 상품에 적용되는 상품의 정보
+ * @param {CartItem[]} cart 장바구니 항목들
+ * @param {number} discount 할인 율
+ * @returns {number} 총 할인된 가격
+ */
+
+export function calculateApplyDiscountedPrice(cart: CartItem, discount: number) {
+  return cart.product.price * cart.quantity * (1 - discount)
+}
+
+/**
  * @function calculateCartTotal
  * @description 장바구니의 총액을 계산
  * @param {CartItem[]} cart - 총액을 계산할 장바구니 항목 들
@@ -60,8 +72,7 @@ const applyCoupon = (total: number, coupon: Coupon | null) => {
 
 export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
   const totalBeforeDiscount =  calculateTotalBeforeDiscount(cart)
-
-  const totalAfterDiscount = cart.reduce((total, item) => total + calculateItemTotal(item), 0);
+  const totalAfterDiscount = calculateTotalAfterDiscount(cart)
   const totalAfterCoupon = applyCoupon(totalAfterDiscount, selectedCoupon);
   const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
 
@@ -90,6 +101,19 @@ export function roundInt(amount: number): number {
  */
 export function calculateTotalBeforeDiscount(cart: CartItem[]) {
   return cart.reduce((total, item) => total + item.product.price * item.quantity, 0)
+}
+
+/**
+ * @function calculateTotalAfterDiscount
+ * @description 장바구니의 상품 할인 적용 후 총액 계산
+ * @param {CartItem[]} cart 장바구니 항목들
+ * @returns {number} 할인 적용 후의 총 금액
+ */
+export function calculateTotalAfterDiscount(cart: CartItem[]) {
+  return cart.reduce((total, item) => {
+    const discount = getMaxApplicableDiscount(item)
+    return total + calculateApplyDiscountedPrice(item, discount)
+  }, 0)
 }
 
 /**
