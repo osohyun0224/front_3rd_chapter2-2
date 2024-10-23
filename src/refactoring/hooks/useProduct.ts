@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { Product } from '../../types'
 
 /**
- * @function useProducts
+ * @function useProduct
  * @description 상품 데이터를 관리하는 커스텀 훅
  * 초기 상품 목록을 상태로 저장하고, 새 상품 추가 및 기존 상품의 업데이트 기능을 제공
  *
@@ -10,7 +10,7 @@ import { Product } from '../../types'
  * @returns {object} 상품 관리와 관련된 상태와 함수들을 포함하는 객체
  */
 
-export const useProducts = (initialProducts: Product[]) => {
+export const useProduct = (initialProducts: Product[]) => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
 
   /**
