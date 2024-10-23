@@ -97,3 +97,9 @@ export const updateCartItemQuantity = (
     })
     .filter((item): item is CartItem => item !== null);
 };
+
+export function updateSet(set: Set<string>, id: string): Set<string> {
+  const newSet = new Set(set);
+  newSet.has(id) ? newSet.delete(id) : newSet.add(id);
+  return newSet;
+}
