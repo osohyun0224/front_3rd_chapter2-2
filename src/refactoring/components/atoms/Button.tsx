@@ -1,20 +1,50 @@
-import React from 'react';
+import { FC } from 'react';
 
-interface ButtonProps {
-  onClick: () => void;
-  children: React.ReactNode;
+export interface ButtonProps {
+  id?: string;
   className?: string;
+  size?: 'small' | 'medium' | 'large';
+  color?: 'primary' | 'error' | 'info' | 'success' | 'disabled';
+  text: string;
+  onClick: () => void;
+  disabled?: boolean;
+};
+
+const colorStyles = {
+  primary: 'bg-blue-500 text-white hover:bg-blue-600',
+  success: 'bg-green-500 text-white hover:bg-green-600',
+  info: 'bg-gray-300 text-black hover:bg-gray-400',
+  error: 'bg-red-500 text-white hover:bg-red-600',
+  disabled: 'bg-gray-300 text-gray-500 cursor-not-allowed',
+} as const;
+
+const sizeStyles = {
+  small: 'px-2 py-1',
+  medium: 'px-4 py-2',
+  large: 'px-6 py-3',
+} as const;
+
+const computeButtonClassNames = (color: keyof typeof colorStyles, size: keyof typeof sizeStyles, additionalClasses: string) => {
+  const colorClass = colorStyles[color];
+  const sizeClass = sizeStyles[size];
+  return `rounded ${additionalClasses} ${colorClass} ${sizeClass}`.trim();
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children, className }) => {
+export const Button: FC<ButtonProps> = ({
+  id,
+  className = '',
+  size = 'medium',
+  color = 'primary',
+  text = '새 상품 추가',
+  onClick,
+  disabled = false,
+  ...props
+}) => {
+  const buttonClassNames = computeButtonClassNames(color, size, className);
+
   return (
-    <button
-      onClick={onClick}
-      className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${className}`}
-    >
-      {children}
+    <button id={id} className={buttonClassNames} onClick={onClick} disabled={disabled} {...props}>
+      {text}
     </button>
   );
 };
-
-export default Button;
