@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Product } from '../../types.ts';
+import { useState, useCallback } from 'react'
+import { Product } from '../../types'
 
 /**
  * @function useProducts
@@ -19,7 +19,7 @@ export const useProducts = (initialProducts: Product[]) => {
    * @param {Product} newProduct - 추가할 새 상품
    */
 
-  const addProduct = (newProduct: Product) => {
+  const addProduct = useCallback((newProduct: Product) => {
     setProducts((prevProducts) => {
       const exists = prevProducts.some((product) => product.id === newProduct.id);
       if (exists) {
@@ -28,7 +28,7 @@ export const useProducts = (initialProducts: Product[]) => {
       }
       return [...prevProducts, newProduct];
     });
-  };
+  }, []);
     
   /**
    * @function updateProduct
@@ -36,11 +36,11 @@ export const useProducts = (initialProducts: Product[]) => {
    * @param {Product} updatedProduct - 업데이트할 상품 정보를 포함하고 있는 상품 객체
    */
 
-  const updateProduct = (updatedProduct: Product) => {
+  const updateProduct = useCallback((updatedProduct: Product) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
     );
-  };
+  }, []);
 
   return {
     products,
