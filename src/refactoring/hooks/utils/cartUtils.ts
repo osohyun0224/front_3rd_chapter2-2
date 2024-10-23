@@ -30,8 +30,8 @@ export function calculateMaxDiscount(discounts: Discount[], quantity: number): n
 
 /**
  * @function getMaxApplicableDiscount
- * @description  주어진 항목에 적용 가능한 최대 할인율을 계산
- * @param {CartItem} item - 최대 할인율을 계산할 카트 항목
+ * @description 장바구니 항목들을 가지고 그 안에 있는 상품의 할인 정보와 수량을 추출해 최대 할인율을 계산
+ * @param {CartItem} cart - 최대 할인율을 계산을 진행할 장바구니 항목
  * @returns {number} 적용 가능한 최대 할인율
  */
 
@@ -41,14 +41,14 @@ export function getMaxApplicableDiscount(cart: CartItem) {
 
 
 /**
- * @function applyCoupon
+ * @function applyCouponDiscount
  * @description 총액에 쿠폰 할인을 적용
  * @param {number} total - 쿠폰을 적용하기 전의 총액
  * @param {Coupon | null} coupon - 적용할 쿠폰
  * @returns {number} 쿠폰이 적용된 후의 총액
  */
 
-const applyCoupon = (total: number, coupon: Coupon | null) => {
+export function applyCouponDiscount (total: number, coupon: Coupon | null) {
   if (!coupon) return total;
   const { discountType, discountValue } = coupon;
 
@@ -80,7 +80,7 @@ export function calculateApplyDiscountedPrice(cart: CartItem, discount: number) 
 export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
   const totalBeforeDiscount =  calculateTotalBeforeDiscount(cart)
   const totalAfterDiscount = calculateTotalAfterDiscount(cart)
-  const totalAfterCoupon = applyCoupon(totalAfterDiscount, selectedCoupon);
+  const totalAfterCoupon = applyCouponDiscount(totalAfterDiscount, selectedCoupon);
   const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
 
   return {
@@ -124,28 +124,33 @@ export function calculateTotalAfterDiscount(cart: CartItem[]) {
 }
 
 /**
+ * @description 한 상품의 수량을 업데이트
+ * @param {CartItem} item - 업데이트할 상품이 포함된 장바구니 항목
+ * @param {string} productId - 수량을 업데이트할 상품의 ID
+ * @param {number} newQuantity - 새로운 수량
+ * @returns {CartItem} 업데이트된 상품의 정보를 담은 장바구니 항목
+ */
+export function updateQuantity(item: CartItem, productId: string, newQuantity: number): CartItem {
+  if (item.product.id === productId) {
+    const maxQuantity = item.product.stock
+    const updatedQuantity = Math.max(0, Math.min(newQuantity, maxQuantity))
+    return { ...item, quantity: updatedQuantity }
+  }
+  return item
+}
+
+/**
  * @function updateCartItemQuantity
- * @description 카트 내 특정 상품의 수량을 업데이트
+ * @description 카트 내 모든 상품을 보고 수량이 0 이상인 상품만을 필터링해 반환
  * @param {CartItem[]} cart - 업데이트할 장바구니
  * @param {string} productId - 수량을 업데이트할 상품의 ID
  * @param {number} newQuantity - 새로운 수량
- * @returns {CartItem[]} 업데이트된 장바구니
+ * @returns {CartItem[]} 업데이트된 장바구니의 상품 목록
 **/
 
-export const updateCartItemQuantity = (
-  cart: CartItem[],
-  productId: string,
-  newQuantity: number
-): CartItem[] => {
-  return cart
-    .map((item) => {
-      if (item.product.id !== productId) return item;
-
-      const updatedQuantity = Math.max(0, Math.min(newQuantity, item.product.stock));
-      return updatedQuantity > 0 ? { ...item, quantity: updatedQuantity } : null;
-    })
-    .filter((item): item is CartItem => item !== null);
-};
+export function updateCartItemQuantity(cart: CartItem[], productId: string, newQuantity: number): CartItem[] {
+  return cart.map((item) => updateQuantity(item, productId, newQuantity)).filter(({ quantity }) => quantity)
+}
 
 export function updateSet(set: Set<string>, id: string): Set<string> {
   const newSet = new Set(set);
