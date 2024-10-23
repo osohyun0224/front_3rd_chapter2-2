@@ -14,7 +14,6 @@ export function calculateItemTotal(cart: CartItem): number {
   return Math.round(totalAfterDiscount)
 }
 
-
 /**
  * @function calculateMaxDiscount
  * @description 한 상품의 최대의 할인율을 계산
@@ -36,14 +35,10 @@ export function calculateMaxDiscount(discounts: Discount[], quantity: number): n
  * @returns {number} 적용 가능한 최대 할인율
  */
 
-export const getMaxApplicableDiscount = (item: CartItem) => {
-  const { discounts } = item.product;
-  const { quantity } = item;
-  return discounts.reduce(
-    (max, discount) => (quantity >= discount.quantity ? Math.max(max, discount.rate) : max),
-    0
-  );
+export function getMaxApplicableDiscount(cart: CartItem) {
+  return calculateMaxDiscount(cart.product.discounts, cart.quantity)
 };
+
 
 /**
  * @function applyCoupon
