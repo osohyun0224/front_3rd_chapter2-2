@@ -1,4 +1,4 @@
-import { CartItem, Coupon, Discount  } from '../../../types';
+import { CartItem, Coupon, Discount } from '../../../types';
 
 /**
  * @function calculateItemTotal
@@ -159,4 +159,11 @@ export function updateSet(set: Set<string>, id: string): Set<string> {
 
 export function isValidCoupon(coupon: Coupon): boolean {
   return coupon.name !== '' && coupon.code !== '' && coupon.discountValue !== 0;
+}
+
+export function completeEditingProduct(editingProduct, onProductUpdate, clearEditingProduct) {
+  if (editingProduct) {
+    onProductUpdate(editingProduct);
+    clearEditingProduct();
+  }
 }
