@@ -4,7 +4,7 @@ export interface ButtonProps {
   id?: string;
   className?: string;
   size?: 'small' | 'medium' | 'large';
-  color?: 'primary' | 'error' | 'info' | 'success' | 'disabled';
+  color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate';
   text: string;
   onClick: () => void;
   disabled?: boolean;
@@ -16,6 +16,7 @@ const colorStyles = {
   info: 'bg-gray-300 text-black hover:bg-gray-400',
   error: 'bg-red-500 text-white hover:bg-red-600',
   disabled: 'bg-gray-300 text-gray-500 cursor-not-allowed',
+  navigate: 'bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100'
 } as const;
 
 const sizeStyles = {
