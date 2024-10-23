@@ -103,3 +103,7 @@ export function updateSet(set: Set<string>, id: string): Set<string> {
   newSet.has(id) ? newSet.delete(id) : newSet.add(id);
   return newSet;
 }
+
+export function isValidCoupon(coupon: Coupon): boolean {
+  return coupon.name !== '' && coupon.code !== '' && coupon.discountValue !== 0;
+}
