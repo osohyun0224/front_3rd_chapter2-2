@@ -167,3 +167,11 @@ export function completeEditingProduct(editingProduct, onProductUpdate, clearEdi
     clearEditingProduct();
   }
 }
+
+export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, isAllEmpty) {
+  const productWithId = { ...newProduct, id: Date.now().toString() };
+  if (isAllEmpty(productWithId.name, productWithId.price, productWithId.stock)) return;
+
+  onProductAdd(productWithId);
+  resetNewProductForm();
+}
