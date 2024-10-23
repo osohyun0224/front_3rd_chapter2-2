@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
 interface InputFieldProps {
-  id?: string;
-  name?: string;
-  placeholder?: string;
   type: 'text' | 'number';
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
+  name?: string;
+  placeholder?: string;
   label?: string;
   className?: string;
 }
