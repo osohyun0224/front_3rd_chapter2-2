@@ -53,16 +53,14 @@ const applyCoupon = (total: number, coupon: Coupon | null) => {
 /**
  * @function calculateCartTotal
  * @description 장바구니의 총액을 계산
- * @param {CartItem[]} cart - 총액을 계산할 장바구니 항목들
+ * @param {CartItem[]} cart - 총액을 계산할 장바구니 항목 들
  * @param {Coupon | null} selectedCoupon - 적용할 쿠폰
  * @returns {object} 할인 전 총액, 할인 후 총액, 총 할인액을 포함하는 객체
  */
 
 export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
-  const totalBeforeDiscount = cart.reduce(
-    (total, item) => total + calculateItemTotal(item, false),
-    0
-  );
+  const totalBeforeDiscount =  calculateTotalBeforeDiscount(cart)
+
   const totalAfterDiscount = cart.reduce((total, item) => total + calculateItemTotal(item), 0);
   const totalAfterCoupon = applyCoupon(totalAfterDiscount, selectedCoupon);
   const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
@@ -82,6 +80,16 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
  */
 export function roundInt(amount: number): number {
   return Math.round(amount)
+}
+
+/**
+ * @function calculateTotalBeforeDiscount
+ * @description 장바구니의 상품 할인 적용 전 총액 계산
+ * @param {CartItem[]} cart 장바구니 항목들
+ * @returns {number} 할인 적용 전의 총 금액
+ */
+export function calculateTotalBeforeDiscount(cart: CartItem[]) {
+  return cart.reduce((total, item) => total + item.product.price * item.quantity, 0)
 }
 
 /**
