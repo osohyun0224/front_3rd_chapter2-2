@@ -3,7 +3,8 @@ import { updateSet } from "./utils";
 
 /**
  * @function useToggleAccordion
- * @description 선택자 컴포넌트에서 아이템의 확장 상태
+ * @description 선택자 컴포넌트에서 아이템의 확장 상태 관리
+ * @summary 계산 > updateSet 사용
  * @returns {{ openItems: any; toggleProducts: any; }}
  */
 
