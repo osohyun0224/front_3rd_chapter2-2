@@ -1,20 +1,28 @@
-import React from 'react';
+import { FC } from 'react';
+
+interface SelectOption {
+  value: string;
+  label: string;
+}
 
 interface SelectProps {
-  options: { value: string, label: string }[];
+  name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: SelectOption[];
   className?: string;
 }
 
-const Select: React.FC<SelectProps> = ({ options, value, onChange, className }) => {
+export const Select: FC<SelectProps> = ({
+  name,
+  value,
+  onChange,
+  options,
+  className = 'w-full p-2 border rounded'
+}) => {
   return (
-    <select
-      value={value}
-      onChange={onChange}
-      className={`w-full p-2 border rounded ${className}`}
-    >
-      {options.map(option => (
+    <select name={name} value={value} onChange={onChange} className={className}>
+      {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
@@ -22,5 +30,3 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, className }) 
     </select>
   );
 };
-
-export default Select;
