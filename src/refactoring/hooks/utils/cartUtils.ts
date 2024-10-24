@@ -151,15 +151,42 @@ export function updateCartItemQuantity(cart: CartItem[], productId: string, newQ
   return cart.map((item) => updateQuantity(item, productId, newQuantity)).filter(({ quantity }) => quantity)
 }
 
+
+/**
+ * @function updateSet
+ * @description 주어진 Set에서 ID를 토글 상태를 업데이트
+ * @param {Set<string>} set - 토글할 ID가 포함된 문자열 Set
+ * @param {string} id - 토글할 ID
+ * @returns {Set<string>} 토글된 결과의 새로운 Set을 반환
+ */
+
 export function updateSet(set: Set<string>, id: string): Set<string> {
   const newSet = new Set(set);
   newSet.has(id) ? newSet.delete(id) : newSet.add(id);
   return newSet;
 }
 
+/**
+ * @function isValidCoupon
+ * @description 쿠폰 객체가 유효한지 검사하는 함수
+ * @param {Coupon} coupon - 검사할 쿠폰 객체
+ * @returns {boolean} 쿠폰의 이름, 코드가 비어있지 않고, 할인값이 0이 아닐 경우 true를 반환
+ */
+
+
 export function isValidCoupon(coupon: Coupon): boolean {
   return coupon.name !== '' && coupon.code !== '' && coupon.discountValue !== 0;
 }
+
+/**
+ * @function completeEditingProduct
+ * @description 제품 편집을 완료하고, 제품 업데이트 함수와 편집 초기화 함수를 호출하는 함수
+ * @param {Product} editingProduct - 편집 중인 제품 객체
+ * @param {Function} onProductUpdate - 제품 업데이트 콜백 함수
+ * @param {Function} clearEditingProduct - 편집 상태 초기화 콜백 함수
+ * @returns {void}
+ */
+
 
 export function completeEditingProduct(editingProduct, onProductUpdate, clearEditingProduct) {
   if (editingProduct) {
@@ -167,6 +194,16 @@ export function completeEditingProduct(editingProduct, onProductUpdate, clearEdi
     clearEditingProduct();
   }
 }
+
+/**
+ * @function addNewProduct
+ * @description 새 제품을 추가하고, 제품 추가 콜백 함수와 폼 리셋 함수를 호출하는 함수
+ * @param {Product} newProduct - 추가할 새 제품 객체
+ * @param {Function} onProductAdd - 제품 추가 콜백 함수
+ * @param {Function} resetNewProductForm - 폼 리셋 콜백 함수
+ * @param {Function} areAllValuesEmpty - 입력 필드들이 비어있는지 확인하는 함수
+ * @returns {void}
+ */
 
 export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, areAllValuesEmpty) {
   const productWithId = { ...newProduct, id: Date.now().toString() };
