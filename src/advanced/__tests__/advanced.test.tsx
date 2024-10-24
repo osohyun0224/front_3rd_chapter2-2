@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { describe, expect, test } from 'vitest';
-import { act, fireEvent, render, screen, within } from '@testing-library/react';
-import { CartPage } from '../../refactoring/components/CartPage';
-import { AdminPage } from "../../refactoring/components/AdminPage";
-import { Coupon, Product } from '../../types';
+import { useState } from 'react';
+import { describe, expect, test, vi } from 'vitest';
+import { act, fireEvent, render, screen, within, renderHook} from '@testing-library/react';
+import { CartPage } from '../../refactoring/pages/CartPage';
+import { AdminPage } from '../../refactoring/pages/AdminPage';
+import { Coupon, Product, CartItem} from '../../types';
+import { useToggleAccordion, useManageCoupons, useManageProducts } from '../../refactoring/hooks';
+import * as cartUtils from '../../refactoring/hooks/utils';
 
 const mockProducts: Product[] = [
   {
@@ -25,22 +27,22 @@ const mockProducts: Product[] = [
     name: '상품3',
     price: 30000,
     stock: 20,
-    discounts: [{ quantity: 10, rate: 0.2 }]
-  }
+    discounts: [{ quantity: 10, rate: 0.2 }],
+  },
 ];
 const mockCoupons: Coupon[] = [
   {
     name: '5000원 할인 쿠폰',
     code: 'AMOUNT5000',
     discountType: 'amount',
-    discountValue: 5000
+    discountValue: 5000,
   },
   {
     name: '10% 할인 쿠폰',
     code: 'PERCENT10',
     discountType: 'percentage',
-    discountValue: 10
-  }
+    discountValue: 10,
+  },
 ];
 
 const TestAdminPage = () => {
@@ -55,11 +57,11 @@ const TestAdminPage = () => {
   };
 
   const handleProductAdd = (newProduct: Product) => {
-    setProducts(prevProducts => [...prevProducts, newProduct]);
+    setProducts((prevProducts) => [...prevProducts, newProduct]);
   };
 
   const handleCouponAdd = (newCoupon: Coupon) => {
-    setCoupons(prevCoupons => [...prevCoupons, newCoupon]);
+    setCoupons((prevCoupons) => [...prevCoupons, newCoupon]);
   };
 
   return (
@@ -74,9 +76,7 @@ const TestAdminPage = () => {
 };
 
 describe('advanced > ', () => {
-
   describe('시나리오 테스트 > ', () => {
-
     test('장바구니 페이지 테스트 > ', async () => {
 
       render(<CartPage products={mockProducts} coupons={mockCoupons}/>);
@@ -97,7 +97,6 @@ describe('advanced > ', () => {
       expect(product3).toHaveTextContent('상품3');
       expect(product3).toHaveTextContent('30,000원');
       expect(product3).toHaveTextContent('재고: 20개');
-
 
       // 2. 할인 정보 표시
       expect(screen.getByText('10개 이상: 10% 할인')).toBeInTheDocument();
@@ -157,8 +156,7 @@ describe('advanced > ', () => {
     });
 
     test('관리자 페이지 테스트 > ', async () => {
-      render(<TestAdminPage/>);
-
+      render(<TestAdminPage />);
 
       const $product1 = screen.getByTestId('product-1');
 
@@ -182,12 +180,15 @@ describe('advanced > ', () => {
       fireEvent.click(within($product1).getByTestId('toggle-button'));
       fireEvent.click(within($product1).getByTestId('modify-button'));
 
-
       act(() => {
         fireEvent.change(within($product1).getByDisplayValue('20'), { target: { value: '25' } });
-        fireEvent.change(within($product1).getByDisplayValue('10000'), { target: { value: '12000' } });
-        fireEvent.change(within($product1).getByDisplayValue('상품1'), { target: { value: '수정된 상품1' } });
-      })
+        fireEvent.change(within($product1).getByDisplayValue('10000'), {
+          target: { value: '12000' },
+        });
+        fireEvent.change(within($product1).getByDisplayValue('상품1'), {
+          target: { value: '수정된 상품1' },
+        });
+      });
 
       fireEvent.click(within($product1).getByText('수정 완료'));
 
@@ -203,7 +204,7 @@ describe('advanced > ', () => {
       act(() => {
         fireEvent.change(screen.getByPlaceholderText('수량'), { target: { value: '5' } });
         fireEvent.change(screen.getByPlaceholderText('할인율 (%)'), { target: { value: '5' } });
-      })
+      });
       fireEvent.click(screen.getByText('할인 추가'));
 
       expect(screen.queryByText('5개 이상 구매 시 5% 할인')).toBeInTheDocument();
@@ -228,17 +229,69 @@ describe('advanced > ', () => {
       const $newCoupon = screen.getByTestId('coupon-3');
 
       expect($newCoupon).toHaveTextContent('새 쿠폰 (NEW10):10% 할인');
-    })
-  })
+    });
+  });
 
   describe('자유롭게 작성해보세요.', () => {
-    test('새로운 유틸 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
-      expect(true).toBe(false);
-    })
 
-    test('새로운 hook 함수르 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
-      expect(true).toBe(false);
-    })
-  })
-})
 
+    describe('Custom Hooks 테스트', () => {
+      describe('useToggleAccordion 커스텀 훅 테스트', () => {
+        test('훅을 처음 사용할 때 아이템들이 열리지 않았으면 아무 아이템도 열려있지 않아야 한다', () => {
+            const { result } = renderHook(() => useToggleAccordion());
+            expect(result.current.openItems.size).toBe(0);
+        });
+    
+        test('아이템을 토글로 추가하면 해당 아이템들이 열려야 한다', () => {
+            const { result } = renderHook(() => useToggleAccordion());
+    
+            act(() => {
+                result.current.toggleProducts('item1');
+                result.current.toggleProducts('item2');
+            });
+    
+            expect(result.current.openItems.size).toBe(2);
+            expect(result.current.openItems.has('item1')).toBe(true);
+            expect(result.current.openItems.has('item2')).toBe(true);
+        });
+    
+        test('열린 아이템 중 하나를 다시 토글하면 그 아이템은 닫혀야 한다', () => {
+            const { result } = renderHook(() => useToggleAccordion());
+    
+            act(() => {
+                result.current.toggleProducts('item1');
+                result.current.toggleProducts('item2');
+            });
+            expect(result.current.openItems.size).toBe(2);
+            expect(result.current.openItems.has('item1')).toBe(true);
+            expect(result.current.openItems.has('item2')).toBe(true);
+    
+            act(() => {
+                result.current.toggleProducts('item2');
+            });
+    
+            expect(result.current.openItems.size).toBe(1);
+            expect(result.current.openItems.has('item1')).toBe(true);
+            expect(result.current.openItems.has('item2')).toBe(false);
+        });
+    
+        test('아이템을 토글할 때마다 새로운 Set 객체로 불변성이 유지되어야 한다', () => {
+            const { result } = renderHook(() => useToggleAccordion());
+            let previousSet = result.current.openItems;
+    
+            act(() => {
+                result.current.toggleProducts('item1');
+            });
+            expect(result.current.openItems).not.toBe(previousSet);
+    
+            previousSet = result.current.openItems;
+            act(() => {
+                result.current.toggleProducts('item2');
+            });
+            expect(result.current.openItems).not.toBe(previousSet);
+        });
+    });
+    });
+
+  });
+});
