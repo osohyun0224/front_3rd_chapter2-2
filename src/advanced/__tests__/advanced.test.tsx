@@ -627,7 +627,49 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('getMaxApplicableDiscount 함수 테스트', () => {
+      test('장바구니에 들어 있는 상품들이 할인 조건을 충족하지 않으면 0을 반환해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 1 };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0);
+      });
 
+      test('장바구니에 들어 있는 상품들이 적용 가능한 최고 할인율을 충족하는 경우 해당 할인율을 반환해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 5 };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0.3);
+      });
+
+      test('장바구니에 들어 있는 상품들이 할인 조건을 정확히 충족할 경우, 해당 조건의 할인율을 반환해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 4 };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0.2);
+      });
+
+      test('여러개의 할인 조건 중 가장 높은 할인율이 적용되어야 한다.', () => {
+        const item: CartItem = {
+          product: createTestProductByUtils({
+            discounts: [
+              { quantity: 2, rate: 0.1 },
+              { quantity: 3, rate: 0.25 },
+              { quantity: 4, rate: 0.5 },
+            ],
+          }),
+          quantity: 4,
+        };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0.5);
+      });
+
+      test('주어진 상품의 할인 조건에 명시된 수량을 초과하더라도 최대 할인율을 반환해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 6 };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0.3);
+      });
+
+      test('할인 정보가 없는 상품일 경우 0을 반환해야 한다.', () => {
+        const item: CartItem = {
+          product: createTestProductByUtils({ discounts: [] }),
+          quantity: 1,
+        };
+        expect(cartUtils.getMaxApplicableDiscount(item)).toBe(0);
+      });
+    });
 
   });
   });
