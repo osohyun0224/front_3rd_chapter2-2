@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Coupon } from '../../../types';
-import { formatKrPrice, discountFormat } from '../../hooks/utils';
+import { formatKrPrice, discountChangeFormat } from '../../hooks/utils';
 import { Select, SelectOption } from '../atoms/Select'
 
 type CouponDropdownProps = {
@@ -12,7 +12,7 @@ type CouponDropdownProps = {
 export const CouponDropdown: FC<CouponDropdownProps> = ({ onChangeApplyCoupon, selectedCoupon, coupons }) => {
   const options: SelectOption[] = coupons.map((coupon, index) => ({
     value: index.toString(),
-    label: `${coupon.name} - ${formatKrPrice(coupon.discountValue)}${discountFormat(coupon)}`
+    label: `${coupon.name} - ${formatKrPrice(coupon.discountValue)}${discountChangeFormat(coupon)}`
   }));
 
   const selectedValue = selectedCoupon ? coupons.indexOf(selectedCoupon).toString() : '';
@@ -29,7 +29,7 @@ export const CouponDropdown: FC<CouponDropdownProps> = ({ onChangeApplyCoupon, s
       {selectedCoupon && (
         <p className="text-green-600">
           적용된 쿠폰: {selectedCoupon.name} ({formatKrPrice(selectedCoupon.discountValue)}
-          {discountFormat(selectedCoupon)} 할인)
+          {discountChangeFormat(selectedCoupon)} 할인)
         </p>
       )}
     </>
