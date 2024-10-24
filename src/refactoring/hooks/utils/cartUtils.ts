@@ -182,49 +182,6 @@ export function isValidCoupon(coupon: Coupon): boolean {
 }
 
 /**
- * @function completeEditingProduct
- * @description 제품 편집을 완료하고, 제품 업데이트 함수와 편집 초기화 함수를 호출
- * @param {Product} editingProduct - 편집 중인 제품 객체
- * @param {Function} onProductUpdate - 제품 업데이트 콜백 함수
- * @param {Function} clearEditingProduct - 편집 상태 초기화 콜백 함수
- * @returns {void}
- */
-
-export function completeEditingProduct(
-  editingProduct: Product,
-  onProductUpdate: (product: Product) => void,
-  clearEditingProduct: () => void
-) {
-  if (editingProduct) {
-    onProductUpdate(editingProduct);
-    clearEditingProduct();
-  }
-}
-
-/**
- * @function addNewProduct
- * @description 새 제품을 추가하고, 제품 추가 콜백 함수와 폼 리셋 함수를 호출
- * @param {Product} newProduct - 추가할 새 제품 객체
- * @param {Function} onProductAdd - 제품 추가 콜백 함수
- * @param {Function} resetNewProductForm - 폼 리셋 콜백 함수
- * @param {Function} areAllValuesEmpty - 입력 필드들이 비어있는지 확인하는 함수
- * @returns {void}
- */
-
-export function addNewProduct(
-  newProduct: Product,
-  onProductAdd: (product: Product) => void,
-  resetNewProductForm: () => void,
-  areAllValuesEmpty: (...values: any[]) => boolean
-): void {
-  const productWithId = { ...newProduct, id: Date.now().toString() };
-  if (areAllValuesEmpty(productWithId.name, productWithId.price, productWithId.stock)) return;
-
-  onProductAdd(productWithId);
-  resetNewProductForm();
-}
-
-/**
  * @function formatKrPrice
  * @description 금액을 숫자로 변환
  * @param {number} amount 변환하려고 하는 금액
