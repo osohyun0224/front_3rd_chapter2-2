@@ -1,6 +1,6 @@
 import { Coupon, Product } from '../../types.ts'
 import { useCart } from '../hooks'
-import { CartDetail, ProductContent, SectionTemplate, CardTemplate, PageTemplate, CouponDropdown, PaymentResult } from '../components'
+import { CartDetail, ProductContent, SectionTemplate, ItemListTemplate, CardTemplate, PageTemplate, CouponDropdown, PaymentResult } from '../components'
 
 interface Props {
   products: Product[]
@@ -23,7 +23,7 @@ export const CartPage = ({ products, coupons }: Props) => {
   return (
     <PageTemplate title="장바구니">
       <SectionTemplate title="상품 목록">
-        <div className="space-y-2">
+        <ItemListTemplate>
           {products.map((product) => (
             <ProductContent
               key={product.id}
@@ -32,11 +32,11 @@ export const CartPage = ({ products, coupons }: Props) => {
               onClickAddToCart={addToCart}
             />
           ))}
-        </div>
+        </ItemListTemplate>
       </SectionTemplate>
 
       <SectionTemplate title="장바구니 내역">
-        <div className="space-y-2">
+        <ItemListTemplate>
           {cart.map((item) => (
             <CartDetail
               key={item.product.id}
@@ -45,7 +45,7 @@ export const CartPage = ({ products, coupons }: Props) => {
               onClickRemoveCart={removeFromCart}
             />
           ))}
-        </div>
+        </ItemListTemplate>
 
         <CardTemplate title="쿠폰 적용">
           <CouponDropdown coupons={coupons} selectedCoupon={selectedCoupon} onChangeApplyCoupon={applyCoupon} />
