@@ -737,5 +737,20 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('calculateTotalAfterDiscount 함수 테스트', () => {
+      test('계산하는 장바구니가 비어 있을 경우 총 가격은 0이어야 한다.', () => {
+        expect(cartUtils.calculateTotalAfterDiscount([])).toBe(0);
+      });
+
+      test('할인 적용 대상이 아닌 상품들만 있을 경우 총액은 모든 상품 원래 가격의 합계여야한다.', () => {
+        const cart = [
+          { product: createTestProductByUtils({ price: 20000 }), quantity: 4 },
+          { product: createTestProductByUtils({ price: 30000 }), quantity: 2 },
+        ];
+        expect(cartUtils.calculateTotalAfterDiscount(cart)).toBe(124000);
+      });
+    });
+
+
   });
   });
