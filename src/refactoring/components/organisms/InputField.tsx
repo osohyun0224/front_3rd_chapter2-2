@@ -24,8 +24,10 @@ export const InputField: FC<InputFieldProps> = ({
 }) => {
   return (
     <>
-      {label && <Label htmlFor={id}>{label}</Label>}
+      <div className="mb-2">
+      {label && <Label htmlFor={id} size={'small'} color={"info"}>{label}</Label>}
       <Input id={id} name={name} placeholder={placeholder} type={type} value={value} onChange={onChange} className={className} />
+      </div>
     </>
   );
 };
