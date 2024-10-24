@@ -1,14 +1,14 @@
-import { Product } from '../../../types'
-import { FC, ReactNode } from 'react'
-import { ItemListTemplate } from '../templates'
-import { LabelButton } from "../atoms"
+import { Product } from '../../../types';
+import { FC, ReactNode } from 'react';
+import { ItemListTemplate } from '../templates';
+import { LabelButton } from '../atoms';
 
 type ProductItemProps = {
-  product: Product
-  index: number
-  toggleProducts: (id: string) => void
-  children: ReactNode
-}
+  product: Product;
+  index: number;
+  toggleProducts: (id: string) => void;
+  children: ReactNode;
+};
 
 export const ProductItem: FC<ProductItemProps> = ({ product, index, toggleProducts, children }) => {
   return (
@@ -22,5 +22,5 @@ export const ProductItem: FC<ProductItemProps> = ({ product, index, toggleProduc
         {children}
       </div>
     </ItemListTemplate>
-  )
-}
+  );
+};

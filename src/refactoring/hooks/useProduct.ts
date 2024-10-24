@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { Product } from '../../types'
+import { useState, useCallback } from 'react';
+import { Product } from '../../types';
 
 /**
  * @function useProduct
@@ -29,7 +29,7 @@ export const useProduct = (initialProducts: Product[]) => {
       return [...prevProducts, newProduct];
     });
   }, []);
-    
+
   /**
    * @function updateProduct
    * @description 상품 목록에서 특정 상품의 정보를 업데이트하고 상품 ID를 기준으로 해당 상품을 찾아 정보를 갱신

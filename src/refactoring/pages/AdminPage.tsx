@@ -1,4 +1,4 @@
-import { Coupon, Product } from '../../types.ts'
+import { Coupon, Product } from '../../types.ts';
 import {
   Button,
   CardTemplate,
@@ -11,20 +11,26 @@ import {
   ProductDetailInfo,
   ProductDetail,
   ItemListTemplate,
-} from '../components'
-import { useToggleAccordion, useManageCoupons, useManageProducts } from '../hooks'
+} from '../components';
+import { useToggleAccordion, useManageCoupons, useManageProducts } from '../hooks';
 
 interface Props {
-  products: Product[]
-  coupons: Coupon[]
-  onProductUpdate: (updatedProduct: Product) => void
-  onProductAdd: (newProduct: Product) => void
-  onCouponAdd: (newCoupon: Coupon) => void
+  products: Product[];
+  coupons: Coupon[];
+  onProductUpdate: (updatedProduct: Product) => void;
+  onProductAdd: (newProduct: Product) => void;
+  onCouponAdd: (newCoupon: Coupon) => void;
 }
 
-export const AdminPage = ({ products, coupons, onProductUpdate, onProductAdd, onCouponAdd }: Props) => {
-  const { openItems, toggleProducts } = useToggleAccordion()
-  const { newCoupon, handleChangeCoupon, handleAddCoupon } = useManageCoupons({ onCouponAdd })
+export const AdminPage = ({
+  products,
+  coupons,
+  onProductUpdate,
+  onProductAdd,
+  onCouponAdd,
+}: Props) => {
+  const { openItems, toggleProducts } = useToggleAccordion();
+  const { newCoupon, handleChangeCoupon, handleAddCoupon } = useManageCoupons({ onCouponAdd });
   const {
     editingProduct,
     newProduct,
@@ -39,7 +45,7 @@ export const AdminPage = ({ products, coupons, onProductUpdate, onProductAdd, on
     handleAddNewProduct,
     handleUpdateProduct,
     handleRemoveDiscount,
-  } = useManageProducts({ products, onProductUpdate, onProductAdd })
+  } = useManageProducts({ products, onProductUpdate, onProductAdd });
 
   return (
     <PageTemplate title="관리자 페이지">
@@ -60,7 +66,12 @@ export const AdminPage = ({ products, coupons, onProductUpdate, onProductAdd, on
 
         <ItemListTemplate>
           {products.map((product, index) => (
-            <ProductItem key={index} product={product} index={index} toggleProducts={toggleProducts}>
+            <ProductItem
+              key={index}
+              product={product}
+              index={index}
+              toggleProducts={toggleProducts}
+            >
               {openItems.has(product.id) && (
                 <div className="mt-4">
                   {editingProduct?.id === product.id ? (
@@ -81,15 +92,19 @@ export const AdminPage = ({ products, coupons, onProductUpdate, onProductAdd, on
               )}
             </ProductItem>
           ))}
-        </ ItemListTemplate>
+        </ItemListTemplate>
       </SectionTemplate>
 
       <SectionTemplate title="쿠폰 관리">
         <CardTemplate>
-          <CouponForm newCoupon={newCoupon} onChangeCoupon={handleChangeCoupon} onClickAddCoupon={handleAddCoupon} />
+          <CouponForm
+            newCoupon={newCoupon}
+            onChangeCoupon={handleChangeCoupon}
+            onClickAddCoupon={handleAddCoupon}
+          />
           <CouponList coupons={coupons} />
         </CardTemplate>
       </SectionTemplate>
     </PageTemplate>
-  )
-}
+  );
+};

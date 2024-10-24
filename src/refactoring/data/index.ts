@@ -1,2 +1,2 @@
-export { initialProducts } from './Products'
-export { initialCoupons } from './Coupons'
+export { initialProducts } from './Products';
+export { initialCoupons } from './Coupons';

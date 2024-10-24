@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { updateSet } from "./utils";
+import { updateSet } from './utils';
 
 /**
  * @function useToggleAccordion
@@ -16,4 +16,4 @@ export const useToggleAccordion = () => {
   }, []);
 
   return { openItems, toggleProducts };
-}
+};

@@ -4,7 +4,7 @@ export interface ButtonProps {
   id?: string;
   className?: string;
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'flex';
-  color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate' |'add';
+  color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate' | 'add';
   text: string;
   onClick: () => void;
   disabled?: boolean;
@@ -17,7 +17,7 @@ const colorStyles = {
   error: 'bg-red-500 text-white hover:bg-red-600',
   disabled: 'bg-gray-300 text-gray-500 cursor-not-allowed',
   navigate: 'bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100',
-  add : 'bg-blue-500 text-white p-2 rounded hover:bg-blue-600'
+  add: 'bg-blue-500 text-white p-2 rounded hover:bg-blue-600',
 } as const;
 
 const sizeStyles = {
@@ -25,7 +25,7 @@ const sizeStyles = {
   medium: 'px-4 py-2',
   large: 'px-6 py-3',
   xlarge: 'w-full px-3 py-1',
-  flex :'w-full',
+  flex: 'w-full',
 } as const;
 
 const computeButtonClassNames = (

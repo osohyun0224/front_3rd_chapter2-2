@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren } from 'react'
-import { Header } from '../organisms'
-import { AdminProvider } from '../../context'
+import { FC, PropsWithChildren } from 'react';
+import { Header } from '../organisms';
+import { AdminProvider } from '../../context';
 
 export const AppTemplate: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -10,5 +10,5 @@ export const AppTemplate: FC<PropsWithChildren> = ({ children }) => {
         <main className="container mx-auto mt-6">{children}</main>
       </div>
     </AdminProvider>
-  )
-}
+  );
+};

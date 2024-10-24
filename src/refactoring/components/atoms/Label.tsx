@@ -25,10 +25,20 @@ const colorStyles = {
   navigate: 'text-blue-600',
 } as const;
 
-export const Label: FC<LabelProps> = ({ htmlFor, children, className = '', size = 'medium', color = 'info' }) => {
+export const Label: FC<LabelProps> = ({
+  htmlFor,
+  children,
+  className = '',
+  size = 'medium',
+  color = 'info',
+}) => {
   const sizeClass = sizeStyles[size];
   const colorClass = colorStyles[color];
   const finalClassName = `block mb-1 ${sizeClass} ${colorClass} ${className}`;
 
-  return <label htmlFor={htmlFor} className={finalClassName}>{children}</label>;
+  return (
+    <label htmlFor={htmlFor} className={finalClassName}>
+      {children}
+    </label>
+  );
 };

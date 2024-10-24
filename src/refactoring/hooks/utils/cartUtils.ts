@@ -133,7 +133,10 @@ export function applyCouponDiscount(total: number, coupon: Coupon | null) {
  * @param {number} totalAfterDiscount 할인 적용 후 금액
  * @returns {number} 계산된 총 할인 금액
  */
-export function calculateTotalDiscount(totalBeforeDiscount: number, totalAfterDiscount: number): number {
+export function calculateTotalDiscount(
+  totalBeforeDiscount: number,
+  totalAfterDiscount: number
+): number {
   return totalBeforeDiscount - totalAfterDiscount;
 }
 

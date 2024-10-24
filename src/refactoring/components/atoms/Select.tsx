@@ -18,7 +18,7 @@ export const Select: FC<SelectProps> = ({
   value,
   onChange,
   options,
-  className = 'w-full p-2 border rounded'
+  className = 'w-full p-2 border rounded',
 }) => {
   return (
     <select name={name} value={value} onChange={onChange} className={className}>

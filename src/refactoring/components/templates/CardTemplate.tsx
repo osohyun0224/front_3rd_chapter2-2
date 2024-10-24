@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode } from 'react';
 
 type CardTemplateProps = {
-  title?: string
-  children: ReactNode
-}
+  title?: string;
+  children: ReactNode;
+};
 
 export const CardTemplate: FC<CardTemplateProps> = ({ title, children }) => {
   return (
@@ -11,5 +11,5 @@ export const CardTemplate: FC<CardTemplateProps> = ({ title, children }) => {
       {title && <h2 className="text-xl font-semibold mb-2">{title}</h2>}
       {children}
     </div>
-  )
-}
+  );
+};

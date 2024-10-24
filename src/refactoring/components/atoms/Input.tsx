@@ -19,14 +19,14 @@ export const Input: FC<InputProps> = ({
   value,
   onChange,
   size = 'medium',
-  className = ''
+  className = '',
 }) => {
   const inputValue = type === 'number' ? value.toString() : value;
 
   const sizeClass = {
     small: 'w-1/3 p-2 border rounded',
     medium: 'w-full p-2 border rounded',
-    large: 'w-full p-4 border rounded'
+    large: 'w-full p-4 border rounded',
   };
 
   const finalClassName = `${sizeClass[size]} ${className}`.trim();

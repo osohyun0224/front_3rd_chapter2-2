@@ -1,16 +1,20 @@
-import { Coupon } from '../../../types'
-import { ItemListTemplate } from '../templates'
-import { FC } from 'react'
-import { Button, Input } from '../atoms'
-import { Select } from "../atoms"
+import { Coupon } from '../../../types';
+import { ItemListTemplate } from '../templates';
+import { FC } from 'react';
+import { Button, Input } from '../atoms';
+import { Select } from '../atoms';
 
 type CouponFormProps = {
-  newCoupon: Coupon
-  onChangeCoupon: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  onClickAddCoupon: () => void
-}
+  newCoupon: Coupon;
+  onChangeCoupon: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onClickAddCoupon: () => void;
+};
 
-export const CouponForm: FC<CouponFormProps> = ({ newCoupon, onChangeCoupon, onClickAddCoupon }) => {
+export const CouponForm: FC<CouponFormProps> = ({
+  newCoupon,
+  onChangeCoupon,
+  onClickAddCoupon,
+}) => {
   const isDisabledSubmit = !newCoupon.name || !newCoupon.code || !newCoupon.discountValue;
 
   return (
@@ -38,7 +42,7 @@ export const CouponForm: FC<CouponFormProps> = ({ newCoupon, onChangeCoupon, onC
           onChange={onChangeCoupon}
           options={[
             { value: 'amount', label: '금액(원)' },
-            { value: 'percentage', label: '할인율(%)' }
+            { value: 'percentage', label: '할인율(%)' },
           ]}
         />
 

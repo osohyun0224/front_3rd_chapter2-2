@@ -1,10 +1,19 @@
-import { Coupon, Product } from '../../types.ts'
-import { useCart } from '../hooks'
-import { CartDetail, ProductContent, SectionTemplate, ItemListTemplate, CardTemplate, PageTemplate, CouponDropdown, PaymentResult } from '../components'
+import { Coupon, Product } from '../../types.ts';
+import { useCart } from '../hooks';
+import {
+  CartDetail,
+  ProductContent,
+  SectionTemplate,
+  ItemListTemplate,
+  CardTemplate,
+  PageTemplate,
+  CouponDropdown,
+  PaymentResult,
+} from '../components';
 
 interface Props {
-  products: Product[]
-  coupons: Coupon[]
+  products: Product[];
+  coupons: Coupon[];
 }
 
 export const CartPage = ({ products, coupons }: Props) => {
@@ -17,8 +26,8 @@ export const CartPage = ({ products, coupons }: Props) => {
     applyCoupon,
     getRemainingStock,
     calculateTotal,
-  } = useCart()
-  const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = calculateTotal()
+  } = useCart();
+  const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = calculateTotal();
 
   return (
     <PageTemplate title="장바구니">
@@ -48,7 +57,11 @@ export const CartPage = ({ products, coupons }: Props) => {
         </ItemListTemplate>
 
         <CardTemplate title="쿠폰 적용">
-          <CouponDropdown coupons={coupons} selectedCoupon={selectedCoupon} onChangeApplyCoupon={applyCoupon} />
+          <CouponDropdown
+            coupons={coupons}
+            selectedCoupon={selectedCoupon}
+            onChangeApplyCoupon={applyCoupon}
+          />
         </CardTemplate>
 
         <CardTemplate title="주문 요약">
@@ -60,5 +73,5 @@ export const CartPage = ({ products, coupons }: Props) => {
         </CardTemplate>
       </SectionTemplate>
     </PageTemplate>
-  )
-}
+  );
+};

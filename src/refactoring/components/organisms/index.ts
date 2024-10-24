@@ -1,2 +1,2 @@
 export { InputField } from './InputField';
-export {Header} from './Header';
+export { Header } from './Header';

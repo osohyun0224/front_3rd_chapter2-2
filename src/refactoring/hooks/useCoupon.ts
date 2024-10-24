@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react'
-import { Coupon } from '../../types'
+import { useState, useCallback } from 'react';
+import { Coupon } from '../../types';
 /**
  * @function useCoupon
  * @description 초기 쿠폰 목록을 기반으로 쿠폰 상태를 관리하는 커스텀 훅
@@ -13,14 +13,14 @@ export const useCoupon = (initialCoupons: Coupon[]) => {
 
   const addCoupon = useCallback((newCoupon: Coupon) => {
     setCoupons((prevCoupons) => {
-      const exists = prevCoupons.some(coupon => coupon.code === newCoupon.code);
+      const exists = prevCoupons.some((coupon) => coupon.code === newCoupon.code);
       if (exists) {
-        alert("이미 쿠폰이 존재해 새로 등록할 수 없습니다.");
+        alert('이미 쿠폰이 존재해 새로 등록할 수 없습니다.');
         return prevCoupons;
       }
       return [...prevCoupons, newCoupon];
     });
-  },[]);
+  }, []);
 
   return { coupons, addCoupon };
 };

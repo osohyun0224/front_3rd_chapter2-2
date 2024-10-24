@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Coupon } from '../../../types';
 import { formatKrPrice, discountChangeFormat } from '../../hooks/utils';
-import { Select, SelectOption } from '../atoms/Select'
+import { Select, SelectOption } from '../atoms/Select';
 
 type CouponDropdownProps = {
   coupons: Coupon[];
@@ -9,10 +9,14 @@ type CouponDropdownProps = {
   onChangeApplyCoupon: (coupon: Coupon) => void;
 };
 
-export const CouponDropdown: FC<CouponDropdownProps> = ({ onChangeApplyCoupon, selectedCoupon, coupons }) => {
+export const CouponDropdown: FC<CouponDropdownProps> = ({
+  onChangeApplyCoupon,
+  selectedCoupon,
+  coupons,
+}) => {
   const options: SelectOption[] = coupons.map((coupon, index) => ({
     value: index.toString(),
-    label: `${coupon.name} - ${formatKrPrice(coupon.discountValue)}${discountChangeFormat(coupon)}`
+    label: `${coupon.name} - ${formatKrPrice(coupon.discountValue)}${discountChangeFormat(coupon)}`,
   }));
 
   const selectedValue = selectedCoupon ? coupons.indexOf(selectedCoupon).toString() : '';

@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react'
-import { CartItem, Coupon, Product } from '../../types'
-import { calculateCartTotal, updateCartItemQuantity, roundInt }  from './utils'
+import { useCallback, useState } from 'react';
+import { CartItem, Coupon, Product } from '../../types';
+import { calculateCartTotal, updateCartItemQuantity, roundInt } from './utils';
 
 /**
  * @function useCart
@@ -15,16 +15,16 @@ export const useCart = () => {
   const [selectedCoupon, setSelectedCoupon] = useState<Coupon | null>(null);
 
   const findCartItemById = useCallback((cart: CartItem[], productId: string) => {
-    return cart.find(({ product }) => product.id === productId)
-  }, [])
+    return cart.find(({ product }) => product.id === productId);
+  }, []);
 
   const getRemainingStock = useCallback(
     (id: string, stock: number) => {
-      const cartItem = findCartItemById(cart, id)
-      return stock - (cartItem?.quantity || 0)
+      const cartItem = findCartItemById(cart, id);
+      return stock - (cartItem?.quantity || 0);
     },
-    [cart],
-  )
+    [cart]
+  );
 
   /**
    * @function addToCart
@@ -34,21 +34,23 @@ export const useCart = () => {
    */
 
   const addToCart = useCallback((product: Product) => {
-    const { id, stock } = product
+    const { id, stock } = product;
 
-    if (!getRemainingStock(id, stock)) return
+    if (!getRemainingStock(id, stock)) return;
 
     setCart((prevCart) => {
-      const existingItem = findCartItemById(prevCart, id)
-      return existingItem ? updateCartItem(prevCart, id) : [...prevCart, { product, quantity: 1 }]
-    })
-  }, [])
+      const existingItem = findCartItemById(prevCart, id);
+      return existingItem ? updateCartItem(prevCart, id) : [...prevCart, { product, quantity: 1 }];
+    });
+  }, []);
 
   const updateCartItem = useCallback((cart: CartItem[], productId: string) => {
     return cart.map((item) =>
-      item.product.id === productId ? { ...item, quantity: Math.min(item.quantity + 1, item.product.stock) } : item,
-    )
-  }, [])
+      item.product.id === productId
+        ? { ...item, quantity: Math.min(item.quantity + 1, item.product.stock) }
+        : item
+    );
+  }, []);
 
   /**
    * @function removeFromCart
@@ -81,13 +83,16 @@ export const useCart = () => {
    * @description 총 금액을 계산하는 함수
    */
   const calculateTotal = useCallback(() => {
-    const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = calculateCartTotal(cart, selectedCoupon)
+    const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } = calculateCartTotal(
+      cart,
+      selectedCoupon
+    );
     return {
       totalBeforeDiscount: roundInt(totalBeforeDiscount),
       totalAfterDiscount: roundInt(totalAfterDiscount),
       totalDiscount: roundInt(totalDiscount),
-    }
-  }, [cart, selectedCoupon])
+    };
+  }, [cart, selectedCoupon]);
 
   return {
     cart,
@@ -98,5 +103,5 @@ export const useCart = () => {
     applyCoupon,
     calculateTotal,
     getRemainingStock,
-  }
-}
+  };
+};

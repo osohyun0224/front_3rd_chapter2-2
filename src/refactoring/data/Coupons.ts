@@ -1,4 +1,4 @@
-import { Coupon } from '../../types'
+import { Coupon } from '../../types';
 
 export const initialCoupons: Coupon[] = [
   {
@@ -13,4 +13,4 @@ export const initialCoupons: Coupon[] = [
     discountType: 'percentage',
     discountValue: 10,
   },
-]
+];

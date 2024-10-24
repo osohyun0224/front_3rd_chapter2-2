@@ -1,4 +1,4 @@
-import { Product } from '../../types'
+import { Product } from '../../types';
 
 export const initialProducts: Product[] = [
   {
@@ -25,4 +25,4 @@ export const initialProducts: Product[] = [
     stock: 20,
     discounts: [{ quantity: 10, rate: 0.2 }],
   },
-]
+];

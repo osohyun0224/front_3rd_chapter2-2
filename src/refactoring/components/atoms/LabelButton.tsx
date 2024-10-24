@@ -8,11 +8,7 @@ interface LabelButtonProps {
 
 export const LabelButton: FC<LabelButtonProps> = ({ onClick, label, testId }) => {
   return (
-    <button
-      data-testid={testId}
-      onClick={onClick}
-      className="w-full text-left font-semibold"
-    >
+    <button data-testid={testId} onClick={onClick} className="w-full text-left font-semibold">
       {label}
     </button>
   );

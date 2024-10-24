@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { CardTemplate } from '../templates';
 import { Product } from '../../../types';
 import { Button } from '../atoms';
-import { InputField } from "../organisms";
+import { InputField } from '../organisms';
 import { areAllValuesEmpty } from '../../hooks/utils';
 
 type ProductFormProps = {

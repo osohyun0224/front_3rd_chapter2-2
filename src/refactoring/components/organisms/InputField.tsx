@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Label, Input } from "../atoms"
+import { Label, Input } from '../atoms';
 
 interface InputFieldProps {
   type: 'text' | 'number';
@@ -22,13 +22,26 @@ export const InputField: FC<InputFieldProps> = ({
   size,
   onChange,
   label,
-  className
+  className,
 }) => {
   return (
     <>
       <div className="mb-2">
-      {label && <Label htmlFor={id} size={'small'} color={"info"}>{label}</Label>}
-      <Input id={id} name={name} placeholder={placeholder} type={type} value={value} onChange={onChange} size={size} className={className} />
+        {label && (
+          <Label htmlFor={id} size={'small'} color={'info'}>
+            {label}
+          </Label>
+        )}
+        <Input
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+          onChange={onChange}
+          size={size}
+          className={className}
+        />
       </div>
     </>
   );

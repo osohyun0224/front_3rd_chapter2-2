@@ -1,5 +1,5 @@
-import { useAdminCheckedContext } from '../../hooks'
-import { Button } from "../atoms";
+import { useAdminCheckedContext } from '../../hooks';
+import { Button } from '../atoms';
 
 export const Header = () => {
   const { isAdmin, setIsAdmin } = useAdminCheckedContext();
@@ -8,7 +8,7 @@ export const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-bold">쇼핑몰 관리 시스템</h1>
         <Button
-          color='navigate'
+          color="navigate"
           size="medium"
           text={isAdmin ? '장바구니 페이지로' : '관리자 페이지로'}
           onClick={() => setIsAdmin(!isAdmin)}
@@ -16,4 +16,4 @@ export const Header = () => {
       </div>
     </nav>
   );
-}
+};

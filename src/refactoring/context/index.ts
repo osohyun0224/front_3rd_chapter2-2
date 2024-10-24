@@ -1,1 +1,1 @@
-export * from './AdminContext'
+export * from './AdminContext';

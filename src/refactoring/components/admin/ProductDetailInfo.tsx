@@ -1,5 +1,5 @@
 import { Discount, Product } from '../../../types';
-import { Button,Input, TitleLabel } from '../atoms';
+import { Button, Input, TitleLabel } from '../atoms';
 import { InputField } from '../organisms';
 import { FC } from 'react';
 
