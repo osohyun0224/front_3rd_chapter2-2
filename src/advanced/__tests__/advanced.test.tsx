@@ -292,6 +292,93 @@ describe('advanced > ', () => {
         });
     });
     });
+    describe('useManageCoupons 커스텀 훅 테스트', () => {
+      const mockOnCouponAdd = vi.fn();
+      const useManageCouponsProps = {
+        onCouponAdd: mockOnCouponAdd,
+      };
+
+      const firstCouponState: Coupon = {
+        name: '',
+        code: '',
+        discountType: 'percentage',
+        discountValue: 0,
+      };
+
+      beforeEach(() => {
+        mockOnCouponAdd.mockClear();
+      });
+
+      test('첫 쿠폰 상태가 초기화되면 모든 값이 비어있어야 한다.', () => {
+        const { result } = renderHook(() => useManageCoupons(useManageCouponsProps));
+        expect(result.current.newCoupon).toEqual(firstCouponState);
+      });
+
+      test('쿠폰 정보가 입력되면 해당 정보가 쿠폰 상태에 반영되어야 한다.', () => {
+        const { result } = renderHook(() => useManageCoupons(useManageCouponsProps));
+        act(() => {
+          result.current.handleChangeCoupon({
+            target: { name: 'name', value: '소현이의 쿠폰' },
+          } as React.ChangeEvent<HTMLInputElement>);
+          result.current.handleChangeCoupon({
+            target: { name: 'discountValue', value: '20' },
+          } as React.ChangeEvent<HTMLInputElement>);
+          result.current.handleChangeCoupon({
+            target: { name: 'discountType', value: 'quantity' },
+          } as React.ChangeEvent<HTMLInputElement>);
+        });
+
+        expect(result.current.newCoupon).toEqual({
+          ...firstCouponState,
+          name: '소현이의 쿠폰',
+          discountValue: '20',
+          discountType: 'quantity',
+        });
+      });
+
+      test('할인 유형이 변경되면 새로운 할인 유형이 쿠폰 상태에 반영되어야 한다.', () => {
+        const { result } = renderHook(() => useManageCoupons(useManageCouponsProps));
+
+        act(() => {
+          result.current.handleChangeCoupon({
+            target: { name: 'discountType', value: 'amount' },
+          } as React.ChangeEvent<HTMLSelectElement>);
+        });
+
+        expect(result.current.newCoupon.discountType).toBe('amount');
+      });
+
+      test('쿠폰을 추가한 후 콜백 함수가 호출되면 새 쿠폰 정보와 함께 호출되어야 한다.', () => {
+        const { result } = renderHook(() => useManageCoupons(useManageCouponsProps));
+
+        act(() => {
+          result.current.handleChangeCoupon({
+            target: { name: 'name', value: '소현이의 쿠폰' },
+          } as React.ChangeEvent<HTMLInputElement>);
+          result.current.handleChangeCoupon({
+            target: { name: 'code', value: 'OSOHYUN0224' },
+          } as React.ChangeEvent<HTMLInputElement>);
+          result.current.handleChangeCoupon({
+            target: { name: 'discountValue', value: '5000' },
+          } as React.ChangeEvent<HTMLInputElement>);
+        });
+
+        act(() => {
+          result.current.handleAddCoupon();
+        });
+
+        expect(mockOnCouponAdd).toHaveBeenCalledWith({
+          ...firstCouponState,
+          name: '소현이의 쿠폰',
+          code: 'OSOHYUN0224',
+          discountValue: '5000',
+        });
+
+        expect(result.current.newCoupon).toEqual(firstCouponState);
+      });
+    });
+
+    
 
   });
 });
