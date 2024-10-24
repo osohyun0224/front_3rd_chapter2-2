@@ -1,7 +1,5 @@
-import { AdminPage } from './AdminPage'
-import { CartPage } from './CartPage'
-import { useCoupon, useProduct } from '../hooks'
-import { useAdminCheckedContext } from '../hooks'
+import { AdminPage, CartPage } from './index'
+import { useCoupon, useProduct, useAdminCheckedContext } from '../hooks'
 import { initialCoupons, initialProducts } from '../data'
 
 export const MainPage = () => {
