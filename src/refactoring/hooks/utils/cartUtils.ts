@@ -1,4 +1,4 @@
-import { Product, CartItem, Coupon, Discount } from '../../../types';
+import { CartItem, Coupon, Discount } from '../../../types';
 
 /**
  * @function calculateItemTotal

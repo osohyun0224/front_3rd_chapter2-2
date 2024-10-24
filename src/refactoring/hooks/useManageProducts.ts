@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from 'react'
 import { Product, Discount } from '../../types'
-import { addNewProduct, areAllValuesEmpty } from '../hooks/utils'
+import { areAllValuesEmpty } from '../hooks/utils'
 
 type OnProductUpdate = (product: Product) => void;
 type OnProductAdd = (product: Product) => void;
