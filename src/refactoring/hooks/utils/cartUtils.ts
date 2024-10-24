@@ -79,7 +79,7 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
   const totalBeforeDiscount = calculateTotalBeforeDiscount(cart);
   const totalAfterDiscount = calculateTotalAfterDiscount(cart);
   const totalAfterCoupon = applyCouponDiscount(totalAfterDiscount, selectedCoupon);
-  const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
+  const totalDiscount = calculateTotalDiscount(totalBeforeDiscount, totalAfterCoupon);
 
   return {
     totalBeforeDiscount: roundInt(totalBeforeDiscount),
@@ -87,6 +87,17 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
     totalDiscount: roundInt(totalDiscount),
   };
 };
+
+/**
+ * @function calculateTotalDiscount
+ * @description 총 할인 금액을 계산
+ * @param {number} totalBeforeDiscount 할인 적용 전 금액
+ * @param {number} totalAfterDiscount 할인 적용 후 금액
+ * @returns {number} 계산된 총 할인 금액
+ */
+export function calculateTotalDiscount(totalBeforeDiscount: number, totalAfterDiscount: number): number {
+  return totalBeforeDiscount - totalAfterDiscount
+}
 
 /**
  * @function roundInt
