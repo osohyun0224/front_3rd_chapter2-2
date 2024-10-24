@@ -869,6 +869,17 @@ describe('advanced > ', () => {
         expect(result.totalDiscount).toBe(24000);
       });
     });
+    
+    describe('getMaxDiscount', () => {
+      test('여러개의 할인 중 최대 할인율을 반환해야 한다.', () => {
+        const discounts = [
+          { quantity: 2, rate: 0.1 },
+          { quantity: 5, rate: 0.2 },
+          { quantity: 3, rate: 0.15 },
+        ];
+        expect(cartUtils.getMaxDiscount(discounts)).toBe(0.2);
+      });
+    });
 
   });
   });
