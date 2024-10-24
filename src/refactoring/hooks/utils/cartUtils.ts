@@ -2,15 +2,15 @@ import { CartItem, Coupon, Discount } from '../../../types';
 
 /**
  * @function calculateItemTotal
- * @description 특정 상품의 최대 할인율을 계산
+ * @description 최대 할인 적용 후 최종 가격을 계산하는 함수
  * @param {CartItem} item - 장바구니 항목
- * @returns {number} 계산된 최대 할인율
+ * @returns {number} - 할인이 적용된 최종 금액
  */
 
 export function calculateItemTotal(cart: CartItem) {
   const discount = getMaxApplicableDiscount(cart)
   const totalAfterDiscount = calculateApplyDiscountedPrice(cart, discount)
-  return Math.round(totalAfterDiscount)
+  return roundInt(totalAfterDiscount)
 }
 
 /**
@@ -168,10 +168,20 @@ export function completeEditingProduct(editingProduct, onProductUpdate, clearEdi
   }
 }
 
-export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, isAllEmpty) {
+export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, areAllValuesEmpty) {
   const productWithId = { ...newProduct, id: Date.now().toString() };
-  if (isAllEmpty(productWithId.name, productWithId.price, productWithId.stock)) return;
+  if (areAllValuesEmpty(productWithId.name, productWithId.price, productWithId.stock)) return;
 
   onProductAdd(productWithId);
   resetNewProductForm();
+}
+
+/**
+ * @description 금액을 숫자로 변환
+ * @param {number} amount 변환하려고 하는 금액
+ * @returns {string} 숫자로 변환된 금액
+ */
+
+export function formatKrPrice(amount: number): string {
+  return amount.toLocaleString()
 }
