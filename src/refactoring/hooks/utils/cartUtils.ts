@@ -177,6 +177,7 @@ export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, are
 }
 
 /**
+ * @function formatKrPrice
  * @description 금액을 숫자로 변환
  * @param {number} amount 변환하려고 하는 금액
  * @returns {string} 숫자로 변환된 금액
@@ -187,10 +188,21 @@ export function formatKrPrice(amount: number): string {
 }
 
 /**
+ * @function discountChangeFormat
  * @description 할인 금액의 형식을 반환
  * @param {Coupon} coupon 대상이 되는 쿠폰
  * @returns {string} 변환된 형식
  */
 export function discountChangeFormat(coupon: Coupon) {
   return coupon.discountType === 'amount' ? '원' : '%'
+}
+
+/**
+ * @function getMaxDiscount
+ * @description 일반적인 최대 할인율을 구현
+ * @param {Discount[]} discounts 전체 할인율 정보
+ * @returns {number} 최대 할인율
+ */
+export function getMaxDiscount(discounts: Discount[]) {
+  return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0)
 }
