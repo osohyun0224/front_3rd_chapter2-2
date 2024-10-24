@@ -913,5 +913,34 @@ describe('advanced > ', () => {
         expect(updatedSet.has(testId)).toBe(false);
       });
     });
+
+    describe('isValidCoupon 함수 테스트', () => {
+      test('모든 필드가 유효할 때 true 반환한다.', () => {
+        const validCoupon: Coupon = {
+          name: '유효한 쿠폰',
+          code: 'VALID2024',
+          discountType: 'percentage',
+          discountValue: 10,
+        };
+        expect(cartUtils.isValidCoupon(validCoupon)).toBe(true);
+      });
+
+      test('하나라도 유효하지 않은 필드가 있으면 false를 반환해야한다.', () => {
+        const invalidCoupons: Coupon[] = [
+          { name: '', code: 'VALID2024', discountType: 'percentage', discountValue: 10 },
+          { name: '유효한 쿠폰', code: '', discountType: 'percentage', discountValue: 10 },
+          {
+            name: '유효한 쿠폰',
+            code: 'VALID2024',
+            discountType: 'percentage',
+            discountValue: 0,
+          },
+        ];
+        invalidCoupons.forEach((coupon) => {
+          expect(cartUtils.isValidCoupon(coupon)).toBe(false);
+        });
+      });
+    });
+
   });
   });
