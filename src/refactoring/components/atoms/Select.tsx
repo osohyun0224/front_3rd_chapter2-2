@@ -22,6 +22,7 @@ export const Select: FC<SelectProps> = ({
 }) => {
   return (
     <select name={name} value={value} onChange={onChange} className={className}>
+      <option value="">쿠폰 선택</option>
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}

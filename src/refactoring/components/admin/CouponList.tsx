@@ -12,7 +12,6 @@ export const CouponList: FC<CouponListProps> = ({ coupons }) => {
   return (
     <ItemListTemplate>
       <TitleLabel level={'h3'}>현재 쿠폰 목록</TitleLabel>
-      <option value="">쿠폰 선택</option>
       {coupons.map((coupon, index) => (
         <CouponItem
           key={index}
