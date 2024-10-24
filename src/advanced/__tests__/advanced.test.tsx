@@ -796,5 +796,24 @@ describe('advanced > ', () => {
         expect(cartUtils.applyCouponDiscount(10000, coupon)).toBe(0);
       });
     });
+
+    describe('calculateTotalDiscount 함수 테스트', () => {
+      test('할인 전 금액이 할인 후 금액보다 클 경우 정확한 할인 금액이 계산되어야 한다.', () => {
+        expect(cartUtils.calculateTotalDiscount(10000, 5000)).toBe(5000);
+      });
+
+      test('할인 전과 할인 후 금액이 동일할 경우 할인 금액은 0이어야 한다.', () => {
+        expect(cartUtils.calculateTotalDiscount(5000, 5000)).toBe(0);
+      });
+
+      test('할인 후 금액이 할인 전 금액보다 큰 경우 음수의 할인 금액이 반환되어야 한다.', () => {
+        expect(cartUtils.calculateTotalDiscount(5000, 6000)).toBe(-1000);
+      });
+
+      test('할인 후 금액이 0일 경우 할인 금액은 할인 전 금액과 동일해야 한다', () => {
+        expect(cartUtils.calculateTotalDiscount(5000, 0)).toBe(5000);
+      });
+    });
+
   });
   });
