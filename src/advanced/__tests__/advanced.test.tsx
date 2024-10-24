@@ -544,7 +544,73 @@ describe('advanced > ', () => {
       });
     });
   })
-  
+  describe('cartUtils 내부의 일반 계산 함수를 테스트합니다.', () => {
+    const createTestProductByUtils = (overrides = {}): Product => ({
+      id: 'PRODUCT001',
+      name: 'Garden',
+      price: 30000,
+      stock: 30,
+      discounts: [
+        { quantity: 4, rate: 0.2 },
+        { quantity: 5, rate: 0.3 },
+      ],
+      ...overrides,
+    });
 
+    const createTestCartItemByUtils = (overrides = {}) => ({
+      product: createTestProductByUtils(),
+      quantity: 1,
+      ...overrides,
+    });
 
+    describe('calculateMaxDiscount 함수 테스트', () => {
+      test('할인 정보가 없을 경우 최대 할인율은 0이어야 한다.', () => {
+        expect(cartUtils.calculateMaxDiscount([], 1)).toBe(0);
+      });
+
+      test('수량이 할인 기준에 미치지 못할 경우 최대 할인율은 0이어야 한다.', () => {
+        const discounts = [{ quantity: 2, rate: 0.1 }];
+        expect(cartUtils.calculateMaxDiscount(discounts, 1)).toBe(0);
+      });
+
+      test('수량이 특정 할인 기준에 정확히 맞을 경우 해당 할인율이 반환되어야 한다.', () => {
+        const discounts = [
+          { quantity: 4, rate: 0.2 },
+          { quantity: 20, rate: 0.4 },
+        ];
+        expect(cartUtils.calculateMaxDiscount(discounts, 4)).toBe(0.2);
+        expect(cartUtils.calculateMaxDiscount(discounts, 20)).toBe(0.4);
+      });
+
+      test('수량이 여러 할인 기준을 만족할 경우 가장 높은 할인율이 반환되어야 한다.', () => {
+        const discounts = [
+          { quantity: 5, rate: 0.1 },
+          { quantity: 10, rate: 0.2 },
+          { quantity: 15, rate: 0.3 },
+        ];
+        expect(cartUtils.calculateMaxDiscount(discounts, 20)).toBe(0.3);
+      });
+
+      test('중복된 할인율이 설정된 여러 조건이 존재할 경우 가장 높은 할인율이 반환되어야 한다.', () => {
+        const discounts = [
+          { quantity: 3, rate: 0.1 },
+          { quantity: 3, rate: 0.1 },
+          { quantity: 10, rate: 0.2 },
+        ];
+        expect(cartUtils.calculateMaxDiscount(discounts, 10)).toBe(0.2);
+      });
+
+      test('다른 조건에 동일한 할인율이 설정되었을 경우 해당 수량에 맞는 할인율이 반환되어야 한다.', () => {
+        const discounts = [
+          { quantity: 5, rate: 0.15 },
+          { quantity: 10, rate: 0.15 },
+        ];
+        expect(cartUtils.calculateMaxDiscount(discounts, 5)).toBe(0.15);
+        expect(cartUtils.calculateMaxDiscount(discounts, 10)).toBe(0.15);
+      });
+    });
+
+    
+
+  });
   });
