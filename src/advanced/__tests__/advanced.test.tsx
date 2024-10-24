@@ -815,5 +815,22 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('roundInt 함수 테스트', () => {
+      test('소수점 이하가 .5 이상일 경우 올림하여 정수로 반환되어야 한다.', () => {
+        expect(cartUtils.roundInt(100.5)).toBe(101);
+        expect(cartUtils.roundInt(-100.5)).toBe(-100);
+      });
+
+      test('소수점 이하가 .5 미만일 경우 내림하여 정수로 반환되어야 한다.', () => {
+        expect(cartUtils.roundInt(100.4)).toBe(100);
+        expect(cartUtils.roundInt(-100.4)).toBe(-100);
+      });
+
+      test('정수 입력 시 동일한 정수가 반환되어야 한다.', () => {
+        expect(cartUtils.roundInt(101)).toBe(101);
+        expect(cartUtils.roundInt(-101)).toBe(-101);
+      });
+    });
+
   });
   });
