@@ -1,11 +1,11 @@
-import { AppLayout } from './components'
+import { AppTemplate } from './components'
 import { MainPage } from './pages'
 
 const App = () => {
   return (
-    <AppLayout>
+    <AppTemplate>
       <MainPage />
-    </AppLayout>
+    </AppTemplate>
   )
 }
 
