@@ -671,5 +671,30 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('calculateItemTotal 함수 테스트', () => {
+      test('장바구니에 들어 있는 상품들이 할인 조건에 미치지 못할 경우, 할인 없이 총액을 계산해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 3 };
+        expect(cartUtils.calculateItemTotal(item)).toBe(90000);
+      });
+
+      test('장바구니에 들어 있는 상품들이 할인 조건을 충족할 경우, 할인 후 총액을 계산해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 4 };
+        expect(cartUtils.calculateItemTotal(item)).toBe(96000);
+      });
+
+      test('장바구니에 들어 있는 상품들이 할인 조건을 크게 초과할 경우, 최대 할인률로 총액을 계산해야 한다.', () => {
+        const item: CartItem = { product: createTestProductByUtils(), quantity: 5 };
+        expect(cartUtils.calculateItemTotal(item)).toBe(105000);
+      });
+
+      test('상품에 할인 정보가 없을 경우, 원래 가격의 총액을 반환해야 한다.', () => {
+        const noDiscountProduct = createTestProductByUtils({ discounts: [] });
+        const item: CartItem = { product: noDiscountProduct, quantity: 4 };
+        expect(cartUtils.calculateItemTotal(item)).toBe(120000);
+      });
+    });
+
+    
+
   });
   });
