@@ -378,7 +378,173 @@ describe('advanced > ', () => {
       });
     });
 
-    
+    describe('useManageProducts 커스텀 훅 테스트', () => {
+      const mockProduct: Product = {
+        id: '1',
+        name: 'Test Product',
+        price: 4000,
+        stock: 20,
+        discounts: [],
+      };
+
+      const mockProps = {
+        products: [mockProduct],
+        onProductUpdate: vi.fn(),
+        onProductAdd: vi.fn(),
+      };
+
+      beforeEach(() => {
+        mockProps.onProductUpdate.mockClear();
+        mockProps.onProductAdd.mockClear();
+      });
+
+      test('초기 상태가 설정되면 새 제품 폼은 비활성화되어야 하고, 새 할인은 초기화되어야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        expect(result.current.editingProduct).toBeNull();
+        expect(result.current.isNewProductForm).toBeFalsy();
+        expect(result.current.newDiscount).toEqual({ quantity: 0, rate: 0 });
+      });
+
+      test('제품을 수정 모드로 설정하면 해당 제품의 정보가 수정 상태에 반영되어야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        act(() => {
+          result.current.handleEditProduct(mockProduct);
+        });
+        expect(result.current.editingProduct).toEqual(mockProduct);
+
+        act(() => {
+          result.current.handleEditComplete();
+        });
+        expect(result.current.editingProduct).toBeNull();
+        expect(mockProps.onProductUpdate).toHaveBeenCalledWith(mockProduct);
+      });
+
+      test('새 할인 정보가 추가되면 제품 정보에 반영되어야 하고, 업데이트 콜백이 호출되어야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        const newDiscount = { quantity: 3, rate: 8 };
+
+        act(() => {
+          result.current.handleEditProduct(mockProduct);
+        });
+
+        act(() => {
+          result.current.setNewDiscount(newDiscount);
+        });
+
+        act(() => {
+          result.current.handleAddDiscount(mockProduct.id);
+        });
+
+        const expectedProduct = {
+          ...mockProduct,
+          discounts: [newDiscount],
+        };
+        expect(mockProps.onProductUpdate).toHaveBeenCalledWith(expectedProduct);
+
+        act(() => {
+          result.current.handleRemoveDiscount(mockProduct.id, 0);
+        });
+
+        expect(mockProps.onProductUpdate).toHaveBeenCalledWith({
+          ...mockProduct,
+          discounts: [],
+        });
+      });
+
+      test('여러 제품을 동시에 관리할 때 상태 관리가 정확해야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        const secondMockProduct: Product = {
+          ...mockProduct,
+          id: '2',
+          name: 'Second Test Product',
+        };
+
+        act(() => {
+          result.current.handleEditProduct(mockProduct);
+        });
+
+        act(() => {
+          result.current.handleEditProduct(secondMockProduct);
+        });
+
+        expect(result.current.editingProduct).toEqual(secondMockProduct);
+
+        act(() => {
+          result.current.handleEditComplete();
+        });
+        expect(result.current.editingProduct).toBeNull();
+        expect(mockProps.onProductUpdate).toHaveBeenCalledWith(secondMockProduct);
+      });
+
+      test('동시에 여러 제품을 추가하려고 할 때 올바르게 처리되어야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        const firstNewProduct = {
+          name: 'First New Product',
+          price: 5000,
+          stock: 5,
+          discounts: [],
+        };
+        const secondNewProduct = {
+          name: 'Second New Product',
+          price: 6000,
+          stock: 4,
+          discounts: [],
+        };
+
+        act(() => {
+          result.current.setNewProduct(firstNewProduct);
+        });
+        act(() => {
+          result.current.handleAddNewProduct();
+        });
+        act(() => {
+          result.current.setNewProduct(secondNewProduct);
+        });
+        act(() => {
+          result.current.handleAddNewProduct();
+        });
+
+        expect(mockProps.onProductAdd).toHaveBeenCalledTimes(2);
+        expect(mockProps.onProductAdd).toHaveBeenCalledWith(
+          expect.objectContaining({ ...firstNewProduct, id: expect.any(String) })
+        );
+        expect(mockProps.onProductAdd).toHaveBeenCalledWith(
+          expect.objectContaining({ ...secondNewProduct, id: expect.any(String) })
+        );
+      });
+
+      test('새 제품을 등록하면 새 제품 정보가 콜백을 통해 추가되고, 새 제품 폼은 비활성화되어야 한다.', () => {
+        const { result } = renderHook(() => useManageProducts(mockProps));
+        const newProduct = {
+          name: 'New Product',
+          price: 2000,
+          stock: 5,
+          discounts: [],
+        };
+
+        act(() => {
+          result.current.toggleNewProductForm();
+        });
+
+        act(() => {
+          result.current.setNewProduct(newProduct);
+        });
+
+        act(() => {
+          result.current.handleAddNewProduct();
+        });
+
+        expect(mockProps.onProductAdd).toHaveBeenCalledWith(
+          expect.objectContaining({
+            ...newProduct,
+            id: expect.any(String),
+          })
+        );
+        expect(result.current.isNewProductForm).toBeFalsy();
+      });
+    });
+  })
+  
+
 
   });
-});
