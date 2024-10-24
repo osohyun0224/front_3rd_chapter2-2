@@ -185,3 +185,12 @@ export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, are
 export function formatKrPrice(amount: number): string {
   return amount.toLocaleString()
 }
+
+/**
+ * @description 할인 금액의 형식을 반환
+ * @param {Coupon} coupon 대상이 되는 쿠폰
+ * @returns {string} 변환된 형식
+ */
+export function discountChangeFormat(coupon: Coupon) {
+  return coupon.discountType === 'amount' ? '원' : '%'
+}
