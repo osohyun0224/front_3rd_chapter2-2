@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from '../atoms';
-import { DiscountList } from './DiscountList';
+import { DiscountItem } from '../atoms'
 import { Product } from '../../../types';
 
 type ProductDetailProps = {
@@ -11,7 +11,7 @@ type ProductDetailProps = {
 export const  ProductDetail: FC<ProductDetailProps > = ({ product, onClickEditProduct }) => {
   return (
     <div>
-      <DiscountList discounts={product.discounts} />
+      <DiscountItem discounts={product.discounts} />
 
       <Button data-testid="modify-button" size="small" text="수정" onClick={() => onClickEditProduct(product)} />
     </div>

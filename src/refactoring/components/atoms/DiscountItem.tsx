@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-interface DiscountListProps {
+interface DiscountItemProps {
   discounts: { quantity: number; rate: number }[];
 }
 //UI만
-export const DiscountList: FC<DiscountListProps> = ({ discounts }) => {
+export const DiscountItem: FC<DiscountItemProps> = ({ discounts }) => {
   return (
     <>
       {discounts.map((discount, index) => (
