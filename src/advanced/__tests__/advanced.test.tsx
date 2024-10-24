@@ -694,7 +694,48 @@ describe('advanced > ', () => {
       });
     });
 
-    
+    describe('calculateTotalBeforeDiscount 함수 테스트', () => {
+      test('계산하는 장바구니가 비어 있을 경우 총 가격은 0이어야 한다.', () => {
+        expect(cartUtils.calculateTotalBeforeDiscount([])).toBe(0);
+      });
+
+      test('상품들이 담겨져 있는 장바구니에 할인 적용 전 총액은 상품들의 가격과 수량에 따른 합이어야 한다.', () => {
+        const cart = [
+          { product: createTestProductByUtils({ price: 10000 }), quantity: 2 },
+          { product: createTestProductByUtils({ price: 20000 }), quantity: 1 },
+        ];
+        expect(cartUtils.calculateTotalBeforeDiscount(cart)).toBe(40000);
+      });
+
+      test('여러개의 상품들이 장바구니에 있을 때, 각 상품의 가격과 수량을 곱한 값들의 합이 총액이어야 한다.', () => {
+        const cart = [
+          { product: createTestProductByUtils({ price: 5000 }), quantity: 3 },
+          { product: createTestProductByUtils({ price: 15000 }), quantity: 2 },
+          { product: createTestProductByUtils({ price: 20000 }), quantity: 1 },
+        ];
+        expect(cartUtils.calculateTotalBeforeDiscount(cart)).toBe(65000);
+      });
+
+      test('해당 상품에 할인 정보가 있더라도 할인 적용 전 총액 계산에 영향을 주지 않아야 한다.', () => {
+        const cart = [
+          {
+            product: createTestProductByUtils({
+              price: 10000,
+              discounts: [{ quantity: 2, rate: 10 }],
+            }),
+            quantity: 2,
+          },
+          {
+            product: createTestProductByUtils({
+              price: 20000,
+              discounts: [{ quantity: 1, rate: 5000 }],
+            }),
+            quantity: 1,
+          },
+        ];
+        expect(cartUtils.calculateTotalBeforeDiscount(cart)).toBe(40000);
+      });
+    });
 
   });
   });
