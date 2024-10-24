@@ -10,6 +10,7 @@ interface InputFieldProps {
   placeholder?: string;
   label?: string;
   className?: string;
+  size?: 'small' | 'medium' | 'large';
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -18,6 +19,7 @@ export const InputField: FC<InputFieldProps> = ({
   placeholder,
   type,
   value,
+  size,
   onChange,
   label,
   className
@@ -26,7 +28,7 @@ export const InputField: FC<InputFieldProps> = ({
     <>
       <div className="mb-2">
       {label && <Label htmlFor={id} size={'small'} color={"info"}>{label}</Label>}
-      <Input id={id} name={name} placeholder={placeholder} type={type} value={value} onChange={onChange} className={className} />
+      <Input id={id} name={name} placeholder={placeholder} type={type} value={value} onChange={onChange} size={size} className={className} />
       </div>
     </>
   );
