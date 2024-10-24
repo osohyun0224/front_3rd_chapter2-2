@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { getMaxApplicableDiscount } from '../../hooks/utils/cartUtils'
 import { CartItem } from '../../../types'
-import { Button } from '../../components'
+import { Button } from '..'
 
 type CardDetailProps = {
   item: CartItem
