@@ -16,7 +16,7 @@ export const CouponList: FC<CouponListProps> = ({ coupons }) => {
         <CouponItem
           key={index}
           testId={`coupon-${index + 1}`}
-          content={`${coupon.name} (${coupon.code}): ${coupon.discountType === 'amount' ? `${coupon.discountValue}원` : `${coupon.discountValue}%`} 할인`}
+          content={`${coupon.name} (${coupon.code}):${coupon.discountType === 'amount' ? `${coupon.discountValue}원` : `${coupon.discountValue}%`} 할인`}
         />
       ))}
     </ItemListTemplate>
