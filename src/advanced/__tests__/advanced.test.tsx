@@ -869,8 +869,8 @@ describe('advanced > ', () => {
         expect(result.totalDiscount).toBe(24000);
       });
     });
-    
-    describe('getMaxDiscount', () => {
+
+    describe('getMaxDiscount 함수 테스트', () => {
       test('여러개의 할인 중 최대 할인율을 반환해야 한다.', () => {
         const discounts = [
           { quantity: 2, rate: 0.1 },
@@ -881,5 +881,37 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('updateSet 함수 테스트', () => {
+      const testProduct = createTestProductByUtils();
+      // 상품 정보에서 ID를 추출
+      const testId = testProduct.id;
+
+      test('새로운 Set 반환하여 불변성을 유지하도록 한다.', () => {
+        const originalSet = new Set();
+        const modifiedSet = cartUtils.updateSet(originalSet, testId);
+        expect(modifiedSet).not.toBe(originalSet);
+      });
+
+      test('ID 추가시 새로운 Set에 새로 추가한 해당 ID가 포함되어야한다.', () => {
+        const set = new Set();
+        const updatedSet = cartUtils.updateSet(set, testId);
+        expect(updatedSet.has(testId)).toBe(true);
+        expect(updatedSet.size).toBe(1);
+      });
+
+      test('ID 제거시 새로운 Set에 새로 추가한 해당 ID가 포함되지 않아야한다.', () => {
+        const set = new Set([testId]);
+        const updatedSet = cartUtils.updateSet(set, testId);
+        expect(updatedSet.has(testId)).toBe(false);
+        expect(updatedSet.size).toBe(0);
+      });
+
+      test('동일한 ID를 반복해 추가하거나 제거시 최종의 상태는 제거된 상태여야한다.', () => {
+        const set = new Set();
+        let updatedSet = cartUtils.updateSet(set, testId);
+        updatedSet = cartUtils.updateSet(updatedSet, testId);
+        expect(updatedSet.has(testId)).toBe(false);
+      });
+    });
   });
   });
