@@ -832,5 +832,43 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('calculateCartTotal 함수 테스트', () => {
+      test('장바구니에 할인이 없을 때, 할인 전 총액과 할인 후 총액이 같아야 한다.', () => {
+        const cart = [
+          { product: createTestProductByUtils({ price: 10000 }), quantity: 2 },
+          { product: createTestProductByUtils({ price: 20000 }), quantity: 1 },
+        ];
+        const coupon = null;
+
+        const result = cartUtils.calculateCartTotal(cart, coupon);
+        expect(result.totalBeforeDiscount).toBe(40000);
+        expect(result.totalAfterDiscount).toBe(40000);
+        expect(result.totalDiscount).toBe(0);
+      });
+
+      test('장바구니에 할인 조건을 초과하는 상품들이 있을 때, 가장 높은 할인율이 적용되어야 한다.', () => {
+        const cart = [{ product: createTestProductByUtils({ price: 30000 }), quantity: 5 }];
+        const coupon = null;
+
+        const result = cartUtils.calculateCartTotal(cart, coupon);
+        expect(result.totalBeforeDiscount).toBe(150000);
+        expect(result.totalAfterDiscount).toBe(105000);
+        expect(result.totalDiscount).toBe(45000);
+      });
+
+      test('할인 정보가 없는 상품과 할인이 적용된 상품이 같이 있는 장바구니에서 총액을 계산해야 한다', () => {
+        const cart = [
+          { product: createTestProductByUtils({ price: 20000, discounts: [] }), quantity: 1 },
+          { product: createTestProductByUtils({ price: 30000 }), quantity: 4 },
+        ];
+        const coupon = null;
+
+        const result = cartUtils.calculateCartTotal(cart, coupon);
+        expect(result.totalBeforeDiscount).toBe(140000);
+        expect(result.totalAfterDiscount).toBe(116000);
+        expect(result.totalDiscount).toBe(24000);
+      });
+    });
+
   });
   });
