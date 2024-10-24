@@ -610,7 +610,24 @@ describe('advanced > ', () => {
       });
     });
 
-    
+    describe('calculateApplyDiscountedPrice 함수 테스트', () => {
+      test('장바구니에 들어있는 상품들에 할인이 적용되지 않을 때, 원래 가격을 그대로 반환해야 한다', () => {
+        const cartItem = createTestCartItemByUtils();
+        expect(cartUtils.calculateApplyDiscountedPrice(cartItem, 0)).toBe(30000);
+      });
+
+      test('장바구니에 있는 상품들에게 적절한 할인율이 적용되었을 때, 할인된 가격을 정확히 계산해야 한다', () => {
+        const cartItem = createTestCartItemByUtils({ quantity: 5 });
+        expect(cartUtils.calculateApplyDiscountedPrice(cartItem, 0.3)).toBe(105000);
+      });
+
+      test('할인율이 100%일 때, 결과 가격은 0이어야 한다', () => {
+        const cartItem = createTestCartItemByUtils({ quantity: 1 });
+        expect(cartUtils.calculateApplyDiscountedPrice(cartItem, 1)).toBe(0);
+      });
+    });
+
+
 
   });
   });
