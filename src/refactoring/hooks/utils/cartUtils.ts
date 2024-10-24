@@ -1,4 +1,4 @@
-import { CartItem, Coupon, Discount } from '../../../types';
+import { Product, CartItem, Coupon, Discount } from '../../../types';
 
 /**
  * @function calculateItemTotal
@@ -8,9 +8,9 @@ import { CartItem, Coupon, Discount } from '../../../types';
  */
 
 export function calculateItemTotal(cart: CartItem) {
-  const discount = getMaxApplicableDiscount(cart)
-  const totalAfterDiscount = calculateApplyDiscountedPrice(cart, discount)
-  return roundInt(totalAfterDiscount)
+  const discount = getMaxApplicableDiscount(cart);
+  const totalAfterDiscount = calculateApplyDiscountedPrice(cart, discount);
+  return roundInt(totalAfterDiscount);
 }
 
 /**
@@ -24,7 +24,7 @@ export function calculateMaxDiscount(discounts: Discount[], quantity: number): n
   return discounts.reduce(
     (max, discount) => (quantity >= discount.quantity ? Math.max(max, discount.rate) : max),
     0
-  )
+  );
 }
 
 /**
@@ -35,9 +35,8 @@ export function calculateMaxDiscount(discounts: Discount[], quantity: number): n
  */
 
 export function getMaxApplicableDiscount(cart: CartItem) {
-  return calculateMaxDiscount(cart.product.discounts, cart.quantity)
-};
-
+  return calculateMaxDiscount(cart.product.discounts, cart.quantity);
+}
 
 /**
  * @function applyCouponDiscount
@@ -47,14 +46,14 @@ export function getMaxApplicableDiscount(cart: CartItem) {
  * @returns {number} 쿠폰이 적용된 후의 총액
  */
 
-export function applyCouponDiscount (total: number, coupon: Coupon | null) {
+export function applyCouponDiscount(total: number, coupon: Coupon | null) {
   if (!coupon) return total;
   const { discountType, discountValue } = coupon;
 
   return discountType === 'amount'
     ? Math.max(0, total - discountValue)
     : total * (1 - discountValue / 100);
-};
+}
 
 /**
  * @function calculateApplyDiscountedPrice
@@ -65,7 +64,7 @@ export function applyCouponDiscount (total: number, coupon: Coupon | null) {
  */
 
 export function calculateApplyDiscountedPrice(cart: CartItem, discount: number) {
-  return cart.product.price * cart.quantity * (1 - discount)
+  return cart.product.price * cart.quantity * (1 - discount);
 }
 
 /**
@@ -77,8 +76,8 @@ export function calculateApplyDiscountedPrice(cart: CartItem, discount: number) 
  */
 
 export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | null) => {
-  const totalBeforeDiscount =  calculateTotalBeforeDiscount(cart)
-  const totalAfterDiscount = calculateTotalAfterDiscount(cart)
+  const totalBeforeDiscount = calculateTotalBeforeDiscount(cart);
+  const totalAfterDiscount = calculateTotalAfterDiscount(cart);
   const totalAfterCoupon = applyCouponDiscount(totalAfterDiscount, selectedCoupon);
   const totalDiscount = totalBeforeDiscount - totalAfterCoupon;
 
@@ -96,7 +95,7 @@ export const calculateCartTotal = (cart: CartItem[], selectedCoupon: Coupon | nu
  * @returns {number} 최종 변환된 값
  */
 export function roundInt(amount: number): number {
-  return Math.round(amount)
+  return Math.round(amount);
 }
 
 /**
@@ -106,7 +105,7 @@ export function roundInt(amount: number): number {
  * @returns {number} 할인 적용 전의 총 금액
  */
 export function calculateTotalBeforeDiscount(cart: CartItem[]) {
-  return cart.reduce((total, item) => total + item.product.price * item.quantity, 0)
+  return cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
 }
 
 /**
@@ -117,9 +116,9 @@ export function calculateTotalBeforeDiscount(cart: CartItem[]) {
  */
 export function calculateTotalAfterDiscount(cart: CartItem[]) {
   return cart.reduce((total, item) => {
-    const discount = getMaxApplicableDiscount(item)
-    return total + calculateApplyDiscountedPrice(item, discount)
-  }, 0)
+    const discount = getMaxApplicableDiscount(item);
+    return total + calculateApplyDiscountedPrice(item, discount);
+  }, 0);
 }
 
 /**
@@ -131,11 +130,11 @@ export function calculateTotalAfterDiscount(cart: CartItem[]) {
  */
 export function updateQuantity(item: CartItem, productId: string, newQuantity: number): CartItem {
   if (item.product.id === productId) {
-    const maxQuantity = item.product.stock
-    const updatedQuantity = Math.max(0, Math.min(newQuantity, maxQuantity))
-    return { ...item, quantity: updatedQuantity }
+    const maxQuantity = item.product.stock;
+    const updatedQuantity = Math.max(0, Math.min(newQuantity, maxQuantity));
+    return { ...item, quantity: updatedQuantity };
   }
-  return item
+  return item;
 }
 
 /**
@@ -145,12 +144,17 @@ export function updateQuantity(item: CartItem, productId: string, newQuantity: n
  * @param {string} productId - 수량을 업데이트할 상품의 ID
  * @param {number} newQuantity - 새로운 수량
  * @returns {CartItem[]} 업데이트된 장바구니의 상품 목록
-**/
+ **/
 
-export function updateCartItemQuantity(cart: CartItem[], productId: string, newQuantity: number): CartItem[] {
-  return cart.map((item) => updateQuantity(item, productId, newQuantity)).filter(({ quantity }) => quantity)
+export function updateCartItemQuantity(
+  cart: CartItem[],
+  productId: string,
+  newQuantity: number
+): CartItem[] {
+  return cart
+    .map((item) => updateQuantity(item, productId, newQuantity))
+    .filter(({ quantity }) => quantity);
 }
-
 
 /**
  * @function updateSet
@@ -173,22 +177,24 @@ export function updateSet(set: Set<string>, id: string): Set<string> {
  * @returns {boolean} 쿠폰의 이름, 코드가 비어있지 않고, 할인값이 0이 아닐 경우 true를 반환
  */
 
-
 export function isValidCoupon(coupon: Coupon): boolean {
   return coupon.name !== '' && coupon.code !== '' && coupon.discountValue !== 0;
 }
 
 /**
  * @function completeEditingProduct
- * @description 제품 편집을 완료하고, 제품 업데이트 함수와 편집 초기화 함수를 호출하는 함수
+ * @description 제품 편집을 완료하고, 제품 업데이트 함수와 편집 초기화 함수를 호출
  * @param {Product} editingProduct - 편집 중인 제품 객체
  * @param {Function} onProductUpdate - 제품 업데이트 콜백 함수
  * @param {Function} clearEditingProduct - 편집 상태 초기화 콜백 함수
  * @returns {void}
  */
 
-
-export function completeEditingProduct(editingProduct, onProductUpdate, clearEditingProduct) {
+export function completeEditingProduct(
+  editingProduct: Product,
+  onProductUpdate: (product: Product) => void,
+  clearEditingProduct: () => void
+) {
   if (editingProduct) {
     onProductUpdate(editingProduct);
     clearEditingProduct();
@@ -197,7 +203,7 @@ export function completeEditingProduct(editingProduct, onProductUpdate, clearEdi
 
 /**
  * @function addNewProduct
- * @description 새 제품을 추가하고, 제품 추가 콜백 함수와 폼 리셋 함수를 호출하는 함수
+ * @description 새 제품을 추가하고, 제품 추가 콜백 함수와 폼 리셋 함수를 호출
  * @param {Product} newProduct - 추가할 새 제품 객체
  * @param {Function} onProductAdd - 제품 추가 콜백 함수
  * @param {Function} resetNewProductForm - 폼 리셋 콜백 함수
@@ -205,7 +211,12 @@ export function completeEditingProduct(editingProduct, onProductUpdate, clearEdi
  * @returns {void}
  */
 
-export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, areAllValuesEmpty) {
+export function addNewProduct(
+  newProduct: Product,
+  onProductAdd: (product: Product) => void,
+  resetNewProductForm: () => void,
+  areAllValuesEmpty: (...values: any[]) => boolean
+): void {
   const productWithId = { ...newProduct, id: Date.now().toString() };
   if (areAllValuesEmpty(productWithId.name, productWithId.price, productWithId.stock)) return;
 
@@ -221,7 +232,7 @@ export function addNewProduct(newProduct, onProductAdd, resetNewProductForm, are
  */
 
 export function formatKrPrice(amount: number): string {
-  return amount.toLocaleString()
+  return amount.toLocaleString();
 }
 
 /**
@@ -231,7 +242,7 @@ export function formatKrPrice(amount: number): string {
  * @returns {string} 변환된 형식
  */
 export function discountChangeFormat(coupon: Coupon) {
-  return coupon.discountType === 'amount' ? '원' : '%'
+  return coupon.discountType === 'amount' ? '원' : '%';
 }
 
 /**
@@ -241,5 +252,5 @@ export function discountChangeFormat(coupon: Coupon) {
  * @returns {number} 최대 할인율
  */
 export function getMaxDiscount(discounts: Discount[]) {
-  return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0)
+  return discounts.reduce((max, discount) => Math.max(max, discount.rate), 0);
 }
