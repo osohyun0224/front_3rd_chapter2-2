@@ -751,6 +751,50 @@ describe('advanced > ', () => {
       });
     });
 
+    describe('applyCouponDiscount 함수 테스트', () => {
+      test('금액 쿠폰이 적용될 경우 할인 후 금액이 계산되어야 한다.', () => {
+        const coupon: Coupon = {
+          name: 'Garden Coupon',
+          code: 'GARDEN001',
+          discountType: 'amount',
+          discountValue: 5000,
+        };
+        expect(cartUtils.applyCouponDiscount(10000, coupon)).toBe(5000);
+      });
 
+      test('퍼센트 쿠폰이 적용될 경우 할인 후 금액이 계산되어야 한다.', () => {
+        const coupon: Coupon = {
+          name: 'Garden Coupon',
+          code: 'GARDEN001',
+          discountType: 'percentage',
+          discountValue: 10,
+        };
+        expect(cartUtils.applyCouponDiscount(10000, coupon)).toBe(9000);
+      });
+
+      test('쿠폰이 null일 경우 할인이 적용되지 않고 원래 금액이 반환되어야 한다.', () => {
+        expect(cartUtils.applyCouponDiscount(10000, null)).toBe(10000);
+      });
+
+      test('할인 금액이 총액을 초과할 경우 할인 후 금액은 0이어야 한다.', () => {
+        const coupon: Coupon = {
+          name: 'Garden Coupon',
+          code: 'GARDEN001',
+          discountType: 'amount',
+          discountValue: 15000,
+        };
+        expect(cartUtils.applyCouponDiscount(10000, coupon)).toBe(0);
+      });
+
+      test('퍼센트 할인이 100%일 경우 할인 후 금액은 0이어야 한다.', () => {
+        const coupon: Coupon = {
+          name: 'Garden Coupon',
+          code: 'GARDEN001',
+          discountType: 'percentage',
+          discountValue: 100,
+        };
+        expect(cartUtils.applyCouponDiscount(10000, coupon)).toBe(0);
+      });
+    });
   });
   });
