@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-
+import { TitleLabel } from '../atoms';
 type SectionTemplateProps = {
   title: string;
   children: ReactNode;
@@ -8,7 +8,10 @@ type SectionTemplateProps = {
 export const SectionTemplate: FC<SectionTemplateProps> = ({ title, children }) => {
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <TitleLabel level="h2" size="xxl" weight="semibold" margin="medium">
+        {title}
+      </TitleLabel>
+
       {children}
     </div>
   );

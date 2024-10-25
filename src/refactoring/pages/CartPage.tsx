@@ -5,7 +5,6 @@ import {
   ProductContent,
   SectionTemplate,
   ItemListTemplate,
-  CardTemplate,
   PageTemplate,
   CouponDropdown,
   PaymentResult,
@@ -56,21 +55,21 @@ export const CartPage = ({ products, coupons }: Props) => {
           ))}
         </ItemListTemplate>
 
-        <CardTemplate title="쿠폰 적용">
+        <SectionTemplate title="쿠폰 적용">
           <CouponDropdown
             coupons={coupons}
             selectedCoupon={selectedCoupon}
             onChangeApplyCoupon={applyCoupon}
           />
-        </CardTemplate>
+        </SectionTemplate>
 
-        <CardTemplate title="주문 요약">
+        <SectionTemplate title="주문 요약">
           <PaymentResult
             totalBeforeDiscount={totalBeforeDiscount}
             totalAfterDiscount={totalAfterDiscount}
             totalDiscount={totalDiscount}
           />
-        </CardTemplate>
+        </SectionTemplate>
       </SectionTemplate>
     </PageTemplate>
   );
