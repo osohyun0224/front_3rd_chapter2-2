@@ -1,8 +1,8 @@
 import { Coupon } from '../../../types';
-import { ItemListTemplate } from '../layout';
+import { ItemListTemplate } from '../common-ui/layout';
 import { FC } from 'react';
-import { Button, Input } from '../atoms';
-import { Select } from '../atoms';
+import { Button, Input } from '../common-ui/atoms';
+import { Select } from '../common-ui/atoms';
 
 type CouponFormProps = {
   newCoupon: Coupon;

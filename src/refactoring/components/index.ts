@@ -1,4 +1,4 @@
-export * from './layout';
+export * from './common-ui/layout';
 export * from './user';
-export * from './atoms';
+export * from './common-ui/atoms';
 export * from './admin';

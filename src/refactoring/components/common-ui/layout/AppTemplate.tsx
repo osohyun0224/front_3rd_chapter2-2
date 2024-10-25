@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { Header } from '../organisms';
-import { AdminProvider } from '../../context';
+import { AdminProvider } from '../../../context';
 
 export const AppTemplate: FC<PropsWithChildren> = ({ children }) => {
   return (

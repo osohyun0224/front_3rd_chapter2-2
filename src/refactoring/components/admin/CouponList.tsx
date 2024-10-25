@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { ItemListTemplate } from '../layout';
+import { ItemListTemplate } from '../common-ui/layout';
 import { Coupon } from '../../../types';
-import { CouponItem } from '../atoms';
-import { TitleLabel } from '../atoms';
+import { CouponItem } from '../common-ui/atoms';
+import { TitleLabel } from '../common-ui/atoms';
 
 type CouponListProps = {
   coupons: Coupon[];

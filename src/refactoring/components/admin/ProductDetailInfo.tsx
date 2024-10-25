@@ -1,6 +1,6 @@
 import { Discount, Product } from '../../../types';
-import { Button, Input, TitleLabel } from '../atoms';
-import { InputField } from '../organisms';
+import { Button, Input, TitleLabel } from '../common-ui/atoms';
+import { InputField } from '../common-ui/organisms';
 import { FC } from 'react';
 
 type ProductDetailInfoProps = {

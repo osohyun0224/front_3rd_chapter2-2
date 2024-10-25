@@ -1,4 +1,4 @@
-import { useAdminCheckedContext } from '../../hooks';
+import { useAdminCheckedContext } from '../../../hooks';
 import { Button } from '../atoms';
 import { TitleLabel } from "../atoms";
 
