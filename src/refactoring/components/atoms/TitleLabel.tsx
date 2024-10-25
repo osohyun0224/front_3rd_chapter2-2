@@ -6,7 +6,7 @@ interface TitleLabelProps {
   level?: 'h1' | 'h2' | 'h3' | 'h4';
   size?: 'lg' | 'xl' | 'xxl' | 'xxxl';
   weight?: 'normal' | 'bold' | 'semibold';
-  margin?: 'small' | 'medium' | 'large';
+  margin?: 'none' | 'small' | 'medium' | 'large';
 }
 
 const sizeClasses = {
@@ -23,6 +23,7 @@ const weightClasses = {
 };
 
 const marginClasses = {
+  none:'',
   small: 'mb-2',
   medium: 'mb-4',
   large: 'mb-6',
@@ -34,7 +35,7 @@ export const TitleLabel: FC<TitleLabelProps> = ({
   level = 'h2',
   size = 'xl',
   weight = 'semibold',
-  margin = '',
+  margin = 'none',
 }) => {
   const Tag = level;
   const sizeClass = sizeClasses[size];

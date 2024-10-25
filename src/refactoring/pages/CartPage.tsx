@@ -8,6 +8,7 @@ import {
   PageTemplate,
   CouponDropdown,
   PaymentResult,
+  CartCardTemplate,
 } from '../components';
 
 interface Props {
@@ -55,21 +56,21 @@ export const CartPage = ({ products, coupons }: Props) => {
           ))}
         </ItemListTemplate>
 
-        <SectionTemplate title="쿠폰 적용">
+        <CartCardTemplate title="쿠폰 적용">
           <CouponDropdown
             coupons={coupons}
             selectedCoupon={selectedCoupon}
             onChangeApplyCoupon={applyCoupon}
           />
-        </SectionTemplate>
+        </CartCardTemplate>
 
-        <SectionTemplate title="주문 요약">
+        <CartCardTemplate title="주문 요약">
           <PaymentResult
             totalBeforeDiscount={totalBeforeDiscount}
             totalAfterDiscount={totalAfterDiscount}
             totalDiscount={totalDiscount}
           />
-        </SectionTemplate>
+        </CartCardTemplate>
       </SectionTemplate>
     </PageTemplate>
   );
