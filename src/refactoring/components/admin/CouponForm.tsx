@@ -1,5 +1,5 @@
 import { Coupon } from '../../../types';
-import { ItemListTemplate } from '../templates';
+import { ItemListTemplate } from '../layout';
 import { FC } from 'react';
 import { Button, Input } from '../atoms';
 import { Select } from '../atoms';

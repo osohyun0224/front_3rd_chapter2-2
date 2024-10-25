@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { CardTemplate } from '../templates';
+import { CardTemplate } from '../layout';
 import { Product } from '../../../types';
 import { Button } from '../atoms';
 import { InputField } from '../organisms';

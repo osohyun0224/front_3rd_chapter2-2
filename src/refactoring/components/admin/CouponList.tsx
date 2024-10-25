@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ItemListTemplate } from '../templates';
+import { ItemListTemplate } from '../layout';
 import { Coupon } from '../../../types';
 import { CouponItem } from '../atoms';
 import { TitleLabel } from '../atoms';
