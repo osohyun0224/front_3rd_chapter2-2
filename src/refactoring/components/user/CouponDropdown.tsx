@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Coupon } from '../../../types';
 import { formatKrPrice, discountChangeFormat } from '../../hooks/utils';
-import { Select, SelectOption } from '../common-ui/atoms/Select';
+import { Select, SelectOption } from '../shared-ui/atoms/Select';
 
 type CouponDropdownProps = {
   coupons: Coupon[];

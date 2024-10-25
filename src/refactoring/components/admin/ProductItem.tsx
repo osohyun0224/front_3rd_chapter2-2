@@ -1,7 +1,7 @@
 import { Product } from '../../../types';
 import { FC, ReactNode } from 'react';
-import { ItemListTemplate } from '../common-ui/layout';
-import { LabelButton } from '../common-ui/atoms';
+import { ItemListTemplate } from '../shared-ui/layout';
+import { LabelButton } from '../shared-ui/atoms';
 
 type ProductItemProps = {
   product: Product;

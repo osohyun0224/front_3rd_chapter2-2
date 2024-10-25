@@ -1,4 +1,4 @@
-export * from './common-ui/layout';
+export * from './shared-ui/layout';
 export * from './user';
-export * from './common-ui/atoms';
+export * from './shared-ui/atoms';
 export * from './admin';

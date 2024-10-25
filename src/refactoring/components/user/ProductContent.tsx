@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { getMaxDiscount } from '../../hooks/utils';
 import { Product } from '../../../types';
-import { Button } from '../common-ui/atoms';
+import { Button } from '../shared-ui/atoms';
 
 type ProductContentProps = {
   product: Product;

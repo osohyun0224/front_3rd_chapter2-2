@@ -1,8 +1,8 @@
 import { Coupon } from '../../../types';
-import { ItemListTemplate } from '../common-ui/layout';
+import { ItemListTemplate } from '../shared-ui/layout';
 import { FC } from 'react';
-import { Button, Input } from '../common-ui/atoms';
-import { Select } from '../common-ui/atoms';
+import { Button, Input } from '../shared-ui/atoms';
+import { Select } from '../shared-ui/atoms';
 
 type CouponFormProps = {
   newCoupon: Coupon;
@@ -58,8 +58,8 @@ export const CouponForm: FC<CouponFormProps> = ({
       <Button
         color={isDisabledSubmit ? 'disabled' : 'success'}
         text="쿠폰 추가"
-        className="w-full mt-2"
-        size="large"
+        className="w-full"
+        size="add"
         onClick={onClickAddCoupon}
         disabled={isDisabledSubmit}
       />

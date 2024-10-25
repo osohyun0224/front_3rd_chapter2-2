@@ -1,8 +1,8 @@
 import { FC, useMemo } from 'react';
-import { CardTemplate } from '../common-ui/layout';
+import { CardTemplate } from '../shared-ui/layout';
 import { Product } from '../../../types';
-import { Button } from '../common-ui/atoms';
-import { InputField } from '../common-ui/organisms';
+import { Button } from '../shared-ui/atoms';
+import { InputField } from '../shared-ui/organisms';
 import { areAllValuesEmpty } from '../../hooks/utils';
 
 type ProductFormProps = {

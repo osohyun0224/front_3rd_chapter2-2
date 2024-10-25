@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Button } from '../common-ui/atoms';
-import { DiscountItem } from '../common-ui/atoms';
+import { Button } from '../shared-ui/atoms';
+import { DiscountItem } from '../shared-ui/atoms';
 import { Product } from '../../../types';
 
 type ProductDetailProps = {

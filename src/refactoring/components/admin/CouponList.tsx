@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { ItemListTemplate } from '../common-ui/layout';
+import { ItemListTemplate } from '../shared-ui/layout';
 import { Coupon } from '../../../types';
-import { CouponItem } from '../common-ui/atoms';
-import { TitleLabel } from '../common-ui/atoms';
+import { CouponItem } from '../shared-ui/atoms';
+import { TitleLabel } from '../shared-ui/atoms';
 
 type CouponListProps = {
   coupons: Coupon[];
@@ -11,9 +11,11 @@ type CouponListProps = {
 export const CouponList: FC<CouponListProps> = ({ coupons }) => {
   return (
     <ItemListTemplate>
+      <div className="mt-4">
       <TitleLabel level="h3" size="lg" weight="semibold" margin="small">
         현재 쿠폰 목록
       </TitleLabel>
+      </div>
       {coupons.map((coupon, index) => (
         <CouponItem
           key={index}

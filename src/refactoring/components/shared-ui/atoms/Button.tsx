@@ -3,7 +3,7 @@ import { FC } from 'react';
 type ButtonProps = {
   id?: string;
   className?: string;
-  size?: 'small' | 'medium' | 'large' | 'xlarge' | 'flex';
+  size?:  'small' | 'medium' | 'large' | 'xlarge' | 'flex' | 'add';
   color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate' | 'add';
   text: string;
   onClick: () => void;
@@ -25,6 +25,7 @@ const sizeStyles = {
   medium: 'px-4 py-2',
   large: 'px-6 py-3',
   xlarge: 'w-full px-3 py-1',
+  add : 'p-2',
   flex: 'w-full',
 } as const;
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { getMaxApplicableDiscount } from '../../hooks/utils/cartUtils';
 import { CartItem } from '../../../types';
-import { Button } from '../common-ui/atoms';
+import { Button } from '../shared-ui/atoms';
 
 type CardDetailProps = {
   item: CartItem;
