@@ -8,7 +8,7 @@ type ButtonProps = {
   text: string;
   onClick: () => void;
   disabled?: boolean;
-}
+};
 
 const colorStyles = {
   primary: 'bg-blue-500 text-white hover:bg-blue-600',

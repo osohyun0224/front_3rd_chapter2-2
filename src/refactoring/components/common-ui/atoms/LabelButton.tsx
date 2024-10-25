@@ -4,7 +4,7 @@ type LabelButtonProps = {
   onClick: () => void;
   label: string;
   testId: string;
-}
+};
 
 export const LabelButton: FC<LabelButtonProps> = ({ onClick, label, testId }) => {
   return (

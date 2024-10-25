@@ -67,7 +67,9 @@ export const ProductDetailInfo: FC<ProductDetailInfoProps> = ({
         </div>
 
         <div>
-        <TitleLabel level="h4" size="lg" weight="semibold" margin="small">할인 정보</TitleLabel>
+          <TitleLabel level="h4" size="lg" weight="semibold" margin="small">
+            할인 정보
+          </TitleLabel>
           {productForm.discounts.map((discount, index) => (
             <div key={index} className="flex justify-between items-center mb-2">
               <span>
@@ -113,7 +115,13 @@ export const ProductDetailInfo: FC<ProductDetailInfoProps> = ({
           </div>
         </div>
 
-        <Button color="success" size="small" text="수정 완료" className="mt-2" onClick={onClickEditComplete} />
+        <Button
+          color="success"
+          size="small"
+          text="수정 완료"
+          className="mt-2"
+          onClick={onClickEditComplete}
+        />
       </div>
     </div>
   );

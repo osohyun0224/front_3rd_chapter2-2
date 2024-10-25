@@ -11,7 +11,9 @@ type CouponListProps = {
 export const CouponList: FC<CouponListProps> = ({ coupons }) => {
   return (
     <ItemListTemplate>
-      <TitleLabel level="h3" size="lg" weight="semibold" margin="small">현재 쿠폰 목록</TitleLabel>
+      <TitleLabel level="h3" size="lg" weight="semibold" margin="small">
+        현재 쿠폰 목록
+      </TitleLabel>
       {coupons.map((coupon, index) => (
         <CouponItem
           key={index}

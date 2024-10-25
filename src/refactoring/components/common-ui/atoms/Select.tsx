@@ -3,7 +3,7 @@ import { FC } from 'react';
 export type SelectOption = {
   value: string;
   label: string;
-}
+};
 
 type SelectProps = {
   name: string;
@@ -11,7 +11,7 @@ type SelectProps = {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: SelectOption[];
   className?: string;
-}
+};
 
 export const Select: FC<SelectProps> = ({
   name,

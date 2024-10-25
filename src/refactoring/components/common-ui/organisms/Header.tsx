@@ -1,13 +1,15 @@
 import { useAdminCheckedContext } from '../../../hooks';
 import { Button } from '../atoms';
-import { TitleLabel } from "../atoms";
+import { TitleLabel } from '../atoms';
 
 export const Header = () => {
   const { isAdmin, setIsAdmin } = useAdminCheckedContext();
   return (
     <nav className="bg-blue-600 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
-      <TitleLabel level="h1" size="xxl" weight="bold">쇼핑몰 관리 시스템</TitleLabel>
+        <TitleLabel level="h1" size="xxl" weight="bold">
+          쇼핑몰 관리 시스템
+        </TitleLabel>
         <Button
           color="navigate"
           size="medium"

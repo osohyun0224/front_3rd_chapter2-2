@@ -11,7 +11,7 @@ type InputFieldProps = {
   label?: string;
   className?: string;
   size?: 'small' | 'medium' | 'large';
-}
+};
 
 export const InputField: FC<InputFieldProps> = ({
   id,

@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 type DiscountItemProps = {
   discounts: { quantity: number; rate: number }[];
-}
+};
 
 export const DiscountItem: FC<DiscountItemProps> = ({ discounts }) => {
   return (

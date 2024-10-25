@@ -7,7 +7,7 @@ type TitleLabelProps = {
   size?: 'lg' | 'xl' | 'xxl' | 'xxxl';
   weight?: 'normal' | 'bold' | 'semibold';
   margin?: 'none' | 'small' | 'medium' | 'large';
-}
+};
 
 const sizeClasses = {
   lg: 'text-lg',
@@ -23,7 +23,7 @@ const weightClasses = {
 };
 
 const marginClasses = {
-  none:'',
+  none: '',
   small: 'mb-2',
   medium: 'mb-4',
   large: 'mb-6',
@@ -41,6 +41,8 @@ export const TitleLabel: FC<TitleLabelProps> = ({
   const sizeClass = sizeClasses[size];
   const weightClass = weightClasses[weight];
   const marginClass = marginClasses[margin];
-  
-  return <Tag className={`${sizeClass} ${weightClass} ${marginClass} ${className}`}>{children}</Tag>;
+
+  return (
+    <Tag className={`${sizeClass} ${weightClass} ${marginClass} ${className}`}>{children}</Tag>
+  );
 };

@@ -9,7 +9,7 @@ type InputProps = {
   placeholder?: string;
   size?: 'small' | 'medium' | 'large';
   className?: string;
-}
+};
 
 export const Input: FC<InputProps> = ({
   id,

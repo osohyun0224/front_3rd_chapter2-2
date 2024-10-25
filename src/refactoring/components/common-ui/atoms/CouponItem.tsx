@@ -4,7 +4,7 @@ type CouponItemProps = {
   content: ReactNode;
   testId: string;
   className?: string;
-}
+};
 
 export const CouponItem: FC<CouponItemProps> = ({ content, testId, className }) => {
   return (

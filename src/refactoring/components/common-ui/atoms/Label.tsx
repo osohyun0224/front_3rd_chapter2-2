@@ -6,7 +6,7 @@ type LabelProps = {
   className?: string;
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'flex';
   color?: 'primary' | 'error' | 'info' | 'success' | 'disabled' | 'navigate';
-}
+};
 
 const sizeStyles = {
   small: 'text-sm',
