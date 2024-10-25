@@ -66,7 +66,6 @@ export const ProductDetailInfo: FC<ProductDetailInfoProps> = ({
           </div>
         </div>
 
-        {/* 할인 정보 수정 부분 */}
         <div>
           <TitleLabel level={'h4'}>할인 정보</TitleLabel>
           {productForm.discounts.map((discount, index) => (
@@ -114,7 +113,7 @@ export const ProductDetailInfo: FC<ProductDetailInfoProps> = ({
           </div>
         </div>
 
-        <Button color="success" size="small" text="수정 완료" onClick={onClickEditComplete} />
+        <Button color="success" size="small" text="수정 완료" className="mt-2" onClick={onClickEditComplete} />
       </div>
     </div>
   );

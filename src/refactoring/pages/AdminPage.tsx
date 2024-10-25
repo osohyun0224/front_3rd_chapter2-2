@@ -56,13 +56,15 @@ export const AdminPage = ({
           text={isNewProductForm ? '취소' : '새 상품 추가'}
           onClick={toggleNewProductForm}
         />
-
-        <ProductForm
+        
+        <div className="mb-2">
+          <ProductForm
           isVisible={isNewProductForm}
           product={newProduct}
           onChangeProduct={setNewProduct}
           onClickAddProduct={handleAddNewProduct}
-        />
+          />
+        </div>
 
         <ItemListTemplate>
           {products.map((product, index) => (

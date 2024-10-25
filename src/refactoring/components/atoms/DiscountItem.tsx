@@ -3,7 +3,7 @@ import { FC } from 'react';
 interface DiscountItemProps {
   discounts: { quantity: number; rate: number }[];
 }
-//UI만
+
 export const DiscountItem: FC<DiscountItemProps> = ({ discounts }) => {
   return (
     <>

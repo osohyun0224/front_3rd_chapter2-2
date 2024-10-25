@@ -40,12 +40,14 @@ export const CartDetail: FC<CardDetailProps> = ({
           color="info"
           onClick={() => onClickUpdateQuantity(item.product.id, item.quantity - 1)}
           text="-"
+          className="mr-1"
         />
         <Button
           size="small"
           color="info"
           onClick={() => onClickUpdateQuantity(item.product.id, item.quantity + 1)}
           text="+"
+          className="mr-1"
         />
         <Button
           size="small"
