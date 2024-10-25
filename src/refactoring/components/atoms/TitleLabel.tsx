@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-interface TitleLabelProps {
+type TitleLabelProps = {
   children: ReactNode;
   className?: string;
   level?: 'h1' | 'h2' | 'h3' | 'h4';

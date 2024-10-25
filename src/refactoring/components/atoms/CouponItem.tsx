@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
-interface CouponItemProps {
+
+type CouponItemProps = {
   content: ReactNode;
   testId: string;
   className?: string;

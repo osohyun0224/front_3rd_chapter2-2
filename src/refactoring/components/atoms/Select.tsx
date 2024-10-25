@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-export interface SelectOption {
+export type SelectOption = {
   value: string;
   label: string;
 }
 
-interface SelectProps {
+type SelectProps = {
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;

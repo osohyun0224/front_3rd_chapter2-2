@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-interface LabelProps {
+type LabelProps = {
   htmlFor?: string;
   children: ReactNode;
   className?: string;

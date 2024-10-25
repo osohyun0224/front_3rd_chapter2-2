@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-interface InputProps {
+type InputProps = {
   type: 'text' | 'number';
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

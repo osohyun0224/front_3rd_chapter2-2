@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-interface DiscountItemProps {
+type DiscountItemProps = {
   discounts: { quantity: number; rate: number }[];
 }
 

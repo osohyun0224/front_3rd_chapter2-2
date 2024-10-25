@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Label, Input } from '../atoms';
 
-interface InputFieldProps {
+type InputFieldProps = {
   type: 'text' | 'number';
   value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-export interface ButtonProps {
+type ButtonProps = {
   id?: string;
   className?: string;
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'flex';
